@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>兩位數 × 一位數 - 香港小學數學</title>
+  <!-- 引入 html2canvas 程式庫以支援報告圖片下載 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    /* 全局樣式與 iPad 觸控優化 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #f0f4f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      touch-action: manipulation;
+    }
+
+    /* 頂部導覽列 */
+    header {
+      background-color: #2b5278;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .lang-btn {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+      min-height: 44px;
+    }
+
+    .lang-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #2b5278;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    /* 首頁選單網格 */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid transparent;
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .card:hover, .card:active {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      border-color: #4a90e2;
+    }
+
+    .card h3 {
+      font-size: 1.45rem;
+      color: #1a365d;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* 練習界面 */
+    .quiz-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .back-nav-btn {
+      background: white;
+      border: 1px solid #cbd5e0;
+      color: #4a5568;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+      min-height: 44px;
+    }
+
+    .back-nav-btn:hover {
+      background-color: #edf2f7;
+      color: #2b6cb0;
+    }
+
+    .quiz-card {
+      background: white;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quiz-progress {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #3182ce;
+    }
+
+    .unit-tag {
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: bold;
+    }
+
+    .level-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    .level-easy { background-color: #c6f6d5; color: #22543d; }
+    .level-medium { background-color: #feebc8; color: #744210; }
+    .level-hard { background-color: #fed7d7; color: #9b2c2c; }
+
+    .question-display {
+      margin: 25px 0;
+      text-align: center;
+    }
+
+    .question-prompt {
+      font-size: 1.35rem;
+      color: #2d3748;
+      font-weight: bold;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .math-expression-display {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #1a365d;
+      margin: 15px 0 25px 0;
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .word-problem-display {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1a365d;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 15px 0 25px 0;
+      line-height: 1.75;
+      text-align: left;
+    }
+
+    /* 單元二：數卡與符號卡樣式（參考 image_778a46） */
+    .cards-question-box {
+      font-size: 1.32rem;
+      font-weight: 600;
+      color: #1a365d;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin: 15px 0 22px 0;
+      line-height: 2.1;
+      text-align: left;
+    }
+
+    .digit-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 44px;
+      padding: 0 10px;
+      margin: 0 3px;
+      background: #ffffff;
+      border: 2px solid #2b5278;
+      border-radius: 8px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #1a365d;
+      box-shadow: 0 2px 4px rgba(43, 82, 120, 0.12);
+      vertical-align: middle;
+    }
+
+    .digit-card.clickable {
+      cursor: pointer;
+      transition: transform 0.12s, background-color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+
+    .digit-card.clickable:hover,
+    .digit-card.clickable:active {
+      background-color: #ebf8ff;
+      border-color: #3182ce;
+      transform: translateY(-2px);
+    }
+
+    /* 單元二中階：先組算式再計算的互動列 */
+    .card-builder-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background-color: #f8fafc;
+      border: 1.5px dashed #cbd5e0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 16px 0 10px 0;
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #2d3748;
+    }
+
+    .card-slot-input {
+      width: 46px;
+      height: 48px;
+      font-size: 1.65rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2px solid #3182ce;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #1a365d;
+      outline: none;
+      padding: 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card-slot-input:focus {
+      border-color: #2b6cb0;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.22);
+    }
+
+    .card-slot-input:disabled {
+      background-color: #edf2f7;
+      border-color: #cbd5e0;
+      color: #4a5568;
+    }
+
+    .clear-cards-btn {
+      background-color: #edf2f7;
+      border: 1px solid #cbd5e0;
+      color: #4a5568;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 6px;
+      min-height: 38px;
+    }
+
+    .clear-cards-btn:hover {
+      background-color: #e2e8f0;
+      color: #1a202c;
+    }
+
+    .symbol-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 36px;
+      height: 42px;
+      padding: 0 8px;
+      margin: 0 3px;
+      background: #edf2f7;
+      border: 2px solid #718096;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #2d3748;
+      vertical-align: middle;
+    }
+
+    .highlight-keyword {
+      color: #c53030;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      padding: 0 2px;
+    }
+
+    /* 單元二：蟲食算直式樣式（參考 image_77eb6b & image_77eba7） */
+    .crypt-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 12px 0 18px 0;
+    }
+
+    .crypt-board {
+      background-color: #fef9e7;
+      border: 1.5px solid #f6e05e;
+      border-radius: 14px;
+      padding: 22px 34px 18px 34px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .crypt-grid {
+      display: grid;
+      grid-template-columns: 44px 48px 48px 48px;
+      align-items: center;
+      justify-items: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a202c;
+      row-gap: 8px;
+    }
+
+    .crypt-hr {
+      grid-column: 1 / 5;
+      width: 100%;
+      border-top: 3px solid #1a202c;
+      margin: 4px 0;
+    }
+
+    .crypt-input {
+      width: 46px;
+      height: 46px;
+      font-size: 1.75rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2.5px solid #4a5568;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #1a365d;
+      outline: none;
+      padding: 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .crypt-input:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.25);
+    }
+
+    .crypt-input:disabled {
+      background-color: #edf2f7;
+      color: #2d3748;
+    }
+
+    .crypt-solved-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 2px solid #e83e8c;
+      border-radius: 6px;
+      background-color: #fff5f7;
+      color: #e83e8c;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .crypt-helper-note {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      color: #744210;
+      font-weight: 500;
+    }
+
+    /* 單元二：估算題解步驟展示 */
+    .est-visual-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #1a365d;
+      padding: 8px 0;
+    }
+
+    .est-pill {
+      background-color: #ebf8ff;
+      border: 1.5px solid #90cdf4;
+      color: #2b6cb0;
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+
+    .equation {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 25px 0 20px 0;
+      color: #2d3748;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .answer-input {
+      font-size: 1.8rem;
+      width: 170px;
+      text-align: center;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 6px 10px;
+      outline: none;
+      transition: border-color 0.2s;
+      min-height: 52px;
+    }
+
+    .answer-input:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      text-align: center;
+      min-height: 48px;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary { background-color: #3182ce; color: white; }
+    .btn-primary:hover { background-color: #2b6cb0; }
+
+    .btn-success { background-color: #38a169; color: white; }
+    .btn-success:hover { background-color: #2f855a; }
+
+    .btn-purple { background-color: #8e44ad; color: white; margin-bottom: 10px; }
+    .btn-purple:hover { background-color: #7d3c98; }
+
+    .btn-sky { background-color: #38bdf8; color: white; margin-bottom: 10px; }
+    .btn-sky:hover { background-color: #0284c7; }
+
+    .btn-gray { background-color: #7f8c8d; color: white; }
+    .btn-gray:hover { background-color: #636e72; }
+
+    /* 反饋與提示訊息 */
+    .feedback-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 1rem;
+    }
+
+    .feedback-success {
+      background-color: #c6f6d5;
+      color: #22543d;
+      border: 1px solid #9ae6b4;
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    .feedback-warning {
+      background-color: #fffaf0;
+      color: #744210;
+      border: 1px solid #fbd38d;
+    }
+
+    .feedback-danger {
+      background-color: #fff5f5;
+      color: #742a2a;
+      border: 1px solid #feb2b2;
+    }
+
+    /* 解題步驟卡片樣式 */
+    .vertical-solution-card {
+      background-color: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 6px;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .solution-header {
+      color: #9b2c2c;
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .solution-sub {
+      color: #744210;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    /* 直式乘法圖解容器 */
+    .balance-step-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: white;
+      border: 1px solid #fed7d7;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 12px 0;
+      color: #2d3748;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);
+    }
+
+    .v-mult-grid {
+      display: grid;
+      grid-template-columns: 36px 42px 42px 42px;
+      text-align: center;
+      align-items: center;
+      font-size: 1.65rem;
+      font-weight: bold;
+      line-height: 1.45;
+    }
+
+    .v-place-header {
+      font-size: 0.85rem;
+      color: #718096;
+      font-weight: 600;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed #e2e8f0;
+      margin-bottom: 4px;
+    }
+
+    .v-line-top {
+      border-top: 2.5px solid #2d3748;
+      padding-top: 4px;
+      margin-top: 2px;
+    }
+
+    .v-carry-row {
+      font-size: 0.95rem;
+      line-height: 1.1;
+      height: 20px;
+    }
+
+    /* 單元一：具體直式拆解圖解（仿教科書分步直式與提示氣泡） */
+    .decomp-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 16px;
+      margin: 12px 0;
+    }
+
+    .decomp-box {
+      flex: 1 1 280px;
+      background: white;
+      border: 1px solid #fed7d7;
+      border-radius: 10px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.02);
+    }
+
+    .decomp-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #2b6cb0;
+      background-color: #ebf8ff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .decomp-grid-2 {
+      display: grid;
+      grid-template-columns: 34px 36px 36px auto;
+      align-items: center;
+      text-align: center;
+      font-size: 1.55rem;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .decomp-grid-3 {
+      display: grid;
+      grid-template-columns: 34px 34px 34px 34px auto;
+      align-items: center;
+      text-align: center;
+      font-size: 1.55rem;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .decomp-header {
+      font-size: 0.82rem;
+      line-height: 1.15;
+      color: #4a5568;
+      font-weight: 700;
+      padding-bottom: 6px;
+    }
+
+    .decomp-hr-2 {
+      grid-column: 1 / 4;
+      border-top: 2.5px solid #2d3748;
+      height: 4px;
+      margin: 2px 0;
+    }
+
+    .decomp-hr-3 {
+      grid-column: 1 / 5;
+      border-top: 2.5px solid #2d3748;
+      height: 4px;
+      margin: 2px 0;
+    }
+
+    .decomp-arrow-green {
+      color: #689f38;
+      font-size: 1.35rem;
+      font-weight: 900;
+      padding-right: 4px;
+    }
+
+    .decomp-arrow-orange {
+      color: #ea580c;
+      font-size: 1.35rem;
+      font-weight: 900;
+      padding-right: 4px;
+    }
+
+    .speech-bubble {
+      position: relative;
+      margin-left: 14px;
+      padding: 3px 12px;
+      border-radius: 14px;
+      font-size: 1.02rem;
+      font-weight: bold;
+      white-space: nowrap;
+      text-align: center;
+      line-height: 1.35;
+      justify-self: start;
+    }
+
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .bubble-green {
+      background-color: #cde6a5;
+      color: #1f3a13;
+    }
+    .bubble-green::before {
+      border-right: 9px solid #cde6a5;
+    }
+
+    .bubble-orange {
+      background-color: #fde08d;
+      color: #4a2c00;
+    }
+    .bubble-orange::before {
+      border-right: 9px solid #fde08d;
+    }
+
+    .bubble-blue {
+      background-color: #bae6fd;
+      color: #0c4a6e;
+    }
+    .bubble-blue::before {
+      border-right: 9px solid #bae6fd;
+    }
+
+    .pink-txt {
+      color: #e83e8c;
+      font-weight: bold;
+    }
+
+    .step-box {
+      background: white;
+      border-left: 4px solid #3182ce;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .step-line {
+      font-size: 1.02rem;
+      color: #2d3748;
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+
+    .solution-footer-ans {
+      color: #e53e3e;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 15px;
+      border-top: 1px dashed #feb2b2;
+      padding-top: 10px;
+    }
+
+    .solution-footer-tip {
+      color: #744210;
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    /* 分析報告界面 */
+    .report-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 650px;
+      margin: 0 auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .report-title {
+      text-align: center;
+      color: #3182ce;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .report-section {
+      background-color: #f8fafc;
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-bottom: 15px;
+    }
+
+    .report-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+
+    .report-row.dashed {
+      border-bottom: 1px dashed #cbd5e0;
+    }
+
+    .report-val { font-weight: bold; }
+    .val-green { color: #276749; }
+    .val-red { color: #9b2c2c; }
+    .val-blue { color: #0284c7; }
+
+    .section-label {
+      font-weight: bold;
+      color: #2d3748;
+      margin: 15px 0 10px 0;
+      font-size: 1rem;
+    }
+
+    .list-box {
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .list-box.correct-bg { background-color: #f7fafc; }
+    .list-box.wrong-bg { background-color: #f7fafc; }
+
+    .list-title {
+      font-weight: bold;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .item-card-correct {
+      background: #f0fff4;
+      border: 1px solid #c6f6d5;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #22543d;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+
+    .item-card-wrong {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #9b2c2c;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+
+    /* Modal 彈窗 */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal-box h3 { margin-bottom: 12px; color: #2b5278; }
+    .modal-box p { margin-bottom: 20px; color: #4a5568; line-height: 1.5; }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 768px) {
+      .quiz-card { padding: 25px 18px; }
+      .math-expression-display { font-size: 2rem; }
+      .word-problem-display { font-size: 1.15rem; padding: 16px; }
+      .equation { font-size: 1.5rem; }
+      .answer-input { font-size: 1.5rem; width: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header>
+    <h1 id="header-title">兩位數 × 一位數</h1>
+    <button id="lang-toggle-btn" class="lang-btn" onclick="toggleLanguage()">English</button>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- 1. 首頁選擇界面 -->
+      <div id="page-home">
+        <h2 id="home-subtitle" class="page-title">請選擇學習單元</h2>
+        <div class="menu-grid">
+          <div class="card" role="button" tabindex="0" onclick="startQuiz('unit1')">
+            <h3 id="u1-title">兩位數 × 一位數</h3>
+            <p id="u1-desc">掌握香港小學數學「兩位數乘一位數」直式計算技巧，循序漸進練習不進位（初階）、一次進位（中階）與連續進位（高階）。</p>
+          </div>
+          <div class="card" role="button" tabindex="0" onclick="startQuiz('unit2')">
+            <h3 id="u2-title">題型特訓</h3>
+            <p id="u2-desc">每次 10 題進階綜合特訓，由淺入深練習「整十數乘法估算」（初階 4 題）、「直式蟲食算」（中階 3 題）及「數字卡組最大／最小積」（高階 3 題）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 答題界面 -->
+      <div id="page-quiz" class="hidden">
+        <div class="quiz-wrapper">
+          <button class="back-nav-btn" onclick="askReturnHome()">
+            <span id="lbl-back-btn">← 返回單元選擇</span>
+          </button>
+
+          <div class="quiz-card">
+            <div class="quiz-header">
+              <div>
+                <span id="quiz-mode-name" class="unit-tag">兩位數 × 一位數</span>
+                <span id="quiz-level-badge" class="level-badge hidden">初階</span>
+              </div>
+              <span id="quiz-progress-text" class="quiz-progress">題目 1 / 10</span>
+            </div>
+
+            <div class="question-display">
+              <div id="question-prompt-text" class="question-prompt">計算下列算式：</div>
+              <div id="math-expr-display" class="math-expression-display">23 × 3 = ?</div>
+            </div>
+
+            <!-- 單元二中階專用：先組成算式再計算 -->
+            <div id="cards-builder-row" class="card-builder-row hidden">
+              <span id="cards-expr-label" style="font-size:1.1rem; color:#2b6cb0;">組成算式：</span>
+              <input type="text" id="card-box-1" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 1)" onkeydown="handleCardSlotKeyDown(event, 1)">
+              <input type="text" id="card-box-2" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 2)" onkeydown="handleCardSlotKeyDown(event, 2)">
+              <span style="margin: 0 4px;">×</span>
+              <input type="text" id="card-box-3" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 3)" onkeydown="handleCardSlotKeyDown(event, 3)">
+              <button type="button" id="btn-clear-cards" class="clear-cards-btn" onclick="clearCardSlots()">重填算式</button>
+            </div>
+
+            <div id="standard-input-row" class="equation">
+              <span id="input-prefix-label">答案：</span>
+              <input type="text" id="answer-input" class="answer-input" placeholder="0" autocomplete="off" inputmode="numeric" pattern="[0-9]*" onkeypress="handleKeyPress(event)">
+            </div>
+
+            <div id="action-area" style="margin-top: 25px;">
+              <button id="btn-submit" class="btn btn-primary" onclick="checkAnswer()">提交答案</button>
+              <button id="btn-next" class="btn btn-success hidden" onclick="nextQuestion()">下一題 ➔</button>
+            </div>
+
+            <div id="feedback-area" class="hidden"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 表現分析報告 -->
+      <div id="page-report" class="hidden">
+        <div id="report-card-to-capture" class="report-card">
+          <h2 id="report-main-title" class="report-title">練習完成！表現分析報告</h2>
+
+          <div class="report-section">
+            <div class="report-row dashed">
+              <span id="lbl-start-time">開始時間：</span>
+              <span id="val-start-time" class="report-val">--</span>
+            </div>
+            <div class="report-row dashed">
+              <span id="lbl-end-time">完成時間：</span>
+              <span id="val-end-time" class="report-val">--</span>
+            </div>
+            <div class="report-row">
+              <span id="lbl-duration">總用時：</span>
+              <span id="val-duration" class="report-val val-blue">--</span>
+            </div>
+          </div>
+
+          <div class="report-section">
+            <div class="report-row dashed">
+              <span id="lbl-total-correct">總答對題數：</span>
+              <span id="val-correct-count" class="report-val val-green">0 / 10</span>
+            </div>
+            <div class="report-row">
+              <span id="lbl-accuracy">整體正確率：</span>
+              <span id="val-accuracy" class="report-val">0%</span>
+            </div>
+          </div>
+
+          <div class="section-label" id="lbl-mastery-title">單元掌握度分析</div>
+          <div class="report-section">
+            <div class="report-row">
+              <span id="report-unit-name">1. 兩位數 × 一位數</span>
+              <span id="val-unit-mastery" class="report-val">0 / 10 (0%)</span>
+            </div>
+          </div>
+
+          <div class="list-box correct-bg">
+            <div class="list-title val-green">
+              <span>☑</span> <span id="lbl-correct-title">答對的題目</span>
+            </div>
+            <div id="correct-list-container"></div>
+          </div>
+
+          <div class="list-box wrong-bg">
+            <div class="list-title val-red">
+              <span>✕</span> <span id="lbl-wrong-title">答錯 / 需要協助的題目</span>
+            </div>
+            <div id="wrong-list-container"></div>
+          </div>
+
+          <div data-html2canvas-ignore="true" style="margin-top: 20px;">
+            <button class="btn btn-purple" onclick="downloadReportImage()"><span id="lbl-btn-download">💾 下載報告圖片</span></button>
+            <button class="btn btn-sky" onclick="retryPractice()"><span id="lbl-btn-retry">🔄 我想再試</span></button>
+            <button class="btn btn-gray" onclick="goHome()"><span id="lbl-btn-home">回到主頁重新選擇</span></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 通用 Modal -->
+  <div id="custom-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="modal-title">提示</h3>
+      <p id="modal-msg">內容訊息</p>
+      <div class="modal-buttons">
+        <button id="modal-cancel-btn" class="btn btn-gray" style="flex: 1;" onclick="closeModal()">取消</button>
+        <button id="modal-confirm-btn" class="btn btn-primary" style="flex: 1;" onclick="confirmModalAction()">確定</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'zh';
+    let currentMode = null;
+    let currentQIndex = 0;
+    let questions = [];
+    let records = [];
+    let wrongAttempts = 0;
+    let startTimeObj = null;
+    let modalActionCallback = null;
+
+    const i18n = {
+      zh: {
+        appTitle: '兩位數 × 一位數',
+        homeSubtitle: '請選擇學習單元',
+        u1Title: '兩位數 × 一位數',
+        u1Desc: '掌握香港小學數學「兩位數乘一位數」直式計算技巧，循序漸進練習不進位（初階）、一次進位（中階）與連續進位（高階）。',
+        u2Title: '題型特訓',
+        u2Desc: '每次 10 題進階綜合特訓，由淺入深練習「整十數乘法估算」（初階 4 題）、「直式蟲食算」（中階 3 題）及「數字卡組最大／最小積」（高階 3 題）。',
+        backBtn: '← 返回單元選擇',
+        qProgress: '題目',
+        lvlEasy: '初階',
+        lvlMed: '中階',
+        lvlHard: '高階',
+        inputPrefixAns: '答案：',
+        inputPrefixEst: '估算結果約是：',
+        submitBtn: '提交答案',
+        nextBtn: '下一題 ➔',
+        promptTextCalc: '計算下列算式：',
+        promptTextEst: '估算以下算式的結果：',
+        promptTextCards: '請先在下方空格組成算式，再計算結果：',
+        promptTextCrypt: '請在直式的方格內填入正確的數字：',
+        cardsExprLabel: '組成算式：',
+        clearExprBtn: '重填算式',
+        cardsClickTip: '（小貼士：可直接點擊上方數字卡填入算式，或在方格內輸入數字）',
+        cryptHelper: '（請在直式兩個空格中各填入 1 個數字 0–9）',
+        errIncompleteExpr: '請先將「組成算式」的三個方格都填上數字卡！',
+        errInvalidCards: '請使用題目給予的三張數字卡組成算式（每張卡只能用一次）！',
+        praise: ['太棒了！答對了！', '非常出色！計算完全正確！', '答得好！直式位值非常清晰！', '完全正確！太厲害了！'],
+        encourage: ['再試試看！你可以的！', '差一點點，再仔細算一算！', '沒關係，重新檢查一次！'],
+        hintEasy: '提示（初階・不進位）：先算個位乘以一位數，再算十位乘以一位數，各自寫在對應的數位上。',
+        hintMedium: '提示（中階・一次進位）：計算時留意某一位相乘會滿 10，記得向高一位進位（進位的數字要加到下一位的乘積中）。',
+        hintHard: '提示（高階・連續進位）：個位相乘滿 10 要向十位進位；計算十位相乘後，千萬別忘記加上剛才進位的數字！',
+        hintU2Est: '提示（初階・估算）：先把兩位數四捨五入至最接近的整十數（個位是 1–4 捨去，5–9 向十位進 1），再乘以一位數。',
+        hintU2CardsMax: '提示（高階・最大積）：要使乘積最大，應把較大的數字放在「一位數（乘數）」及「兩位數的十位」上（同時留意題目對奇數或偶數的限制）。',
+        hintU2CardsMin: '提示（高階・最小積）：要使乘積最小，應把較小的數字放在「一位數（乘數）」及「兩位數的十位」上（同時留意題目對奇數或偶數的限制）。',
+        hintU2Crypt: '提示（中階・蟲食算）：先從「個位相乘」的個位數字入手，推算第一個方格，再留意有沒有滿 10 進位，推算十位與百位！',
+        verticalSolutionTitle: '📘 完整直式與位值題解思路',
+        verticalSolutionSub: '依直式乘法（先算個位、再算十位）詳細演算過程：',
+        decompMethod1: '方法一：直式拆解（分步計算）',
+        decompMethod2: '方法二：進位直式（簡寫法）',
+        placeH: '百',
+        placeT: '十',
+        placeO: '個',
+        u2SolTitleEst: '📘 四捨五入估算題解思路',
+        u2SolSubEst: '先把兩位數四捨五入至整十數，再進行乘法計算：',
+        u2SolTitleCards: '📘 數字卡組算式題解思路',
+        u2SolSubCards: '根據位值大小與奇偶限制排列數字卡：',
+        u2SolTitleCrypt: '📘 直式蟲食算推理思路',
+        u2SolSubCrypt: '從個位乘法尾數與進位關係逐步推理：',
+        correctAnsIs: '正確答案為：',
+        estAnsIs: '估算結果約是：',
+        footerTip: '看懂題解步驟後，請點擊下一題繼續練習！',
+        reportTitle: '練習完成！表現分析報告',
+        startTime: '開始時間：',
+        endTime: '完成時間：',
+        durationTime: '總用時：',
+        totalCorrect: '總答對題數：',
+        accuracy: '整體正確率：',
+        masteryTitle: '單元掌握度分析',
+        correctTitle: '答對的題目',
+        wrongTitle: '答錯 / 需要協助的題目',
+        noCorrect: '暫無第一次即答對的題目。',
+        noWrong: '太厲害了！完全沒有答錯的題目！',
+        questionLabel: '第 {n} 題',
+        ansLabel: '正確答案',
+        correctAnsLabel: '正確答案',
+        yourAnsLabel: '你的首次回答',
+        btnDownload: '💾 下載報告圖片',
+        btnRetry: '🔄 我想再試',
+        btnHome: '回到主頁重新選擇',
+        modalReturnTitle: '返回主頁提示',
+        modalReturnMsg: '離開將會重置目前的答題進度，確定要返回嗎？',
+        modalCancel: '取消',
+        modalStart: '確定',
+        modalErrorTitle: '提示',
+        modalErrorMsg: '下載失敗，請稍後再試：',
+        modalClose: '關閉'
+      },
+      en: {
+        appTitle: '2-Digit × 1-Digit',
+        homeSubtitle: 'Please Select a Learning Unit',
+        u1Title: '2-Digit × 1-Digit',
+        u1Desc: 'Master column multiplication of 2-digit by 1-digit numbers: no carrying (Easy), single carrying (Medium), and consecutive carrying (Hard).',
+        u2Title: 'Special Question Training',
+        u2Desc: '10-question progressive training per set: Rounding Estimation (4 Easy), Missing-Digit Puzzles (3 Medium), and Number Cards Max/Min Product (3 Hard).',
+        backBtn: '← Back to Menu',
+        qProgress: 'Question',
+        lvlEasy: 'Easy',
+        lvlMed: 'Medium',
+        lvlHard: 'Hard',
+        inputPrefixAns: 'Answer:',
+        inputPrefixEst: 'Estimated product:',
+        submitBtn: 'Submit Answer',
+        nextBtn: 'Next Question ➔',
+        promptTextCalc: 'Calculate the following:',
+        promptTextEst: 'Estimate the result of the following:',
+        promptTextCards: 'Form the expression in the boxes below, then calculate:',
+        promptTextCrypt: 'Fill in the missing digits in the boxes:',
+        cardsExprLabel: 'Expression:',
+        clearExprBtn: 'Clear',
+        cardsClickTip: '(Tip: Tap the number cards above to fill in, or type directly)',
+        cryptHelper: '(Enter one digit 0–9 in each box)',
+        errIncompleteExpr: 'Please fill in all three boxes to form your expression first!',
+        errInvalidCards: 'Please use the exact three number cards provided (each used once)!',
+        praise: ['Excellent! Correct!', 'Great job! Perfect calculation!', 'Well done! Place value mastery!', 'Awesome! You got it right!'],
+        encourage: ['Try again! You can do it!', 'Almost there, re-check your steps!', 'Don\'t worry, count it again!'],
+        hintEasy: 'Hint (Easy - No Carrying): Multiply the ones digit first, then the tens digit, writing each in its place value column.',
+        hintMedium: 'Hint (Medium - Single Carrying): Watch for a product ≥ 10 in one column and remember to carry to the next place!',
+        hintHard: 'Hint (Hard - Consecutive Carrying): Carry from ones to tens, and remember to add that carried digit after multiplying the tens!',
+        hintU2Est: 'Hint (Easy - Estimation): Round the 2-digit number to the nearest ten first (ones 1–4 round down, 5–9 round up), then multiply.',
+        hintU2CardsMax: 'Hint (Hard - Max Product): Place larger digits in the 1-digit multiplier and the tens place of the 2-digit number (respecting any odd/even rule).',
+        hintU2CardsMin: 'Hint (Hard - Min Product): Place smaller digits in the 1-digit multiplier and the tens place of the 2-digit number (respecting any odd/even rule).',
+        hintU2Crypt: 'Hint (Medium - Missing Digits): Start from the ones column product to deduce the first box, then track any carrying into the tens and hundreds!',
+        verticalSolutionTitle: '📘 Complete Column Multiplication Steps',
+        verticalSolutionSub: 'Step-by-step column multiplication (ones first, then tens):',
+        decompMethod1: 'Method 1: Expanded Column',
+        decompMethod2: 'Method 2: Standard Carrying',
+        placeH: 'H',
+        placeT: 'T',
+        placeO: 'O',
+        u2SolTitleEst: '📘 Rounding Estimation Solution',
+        u2SolSubEst: 'Round the 2-digit number to the nearest ten, then multiply:',
+        u2SolTitleCards: '📘 Number Cards Strategy Solution',
+        u2SolSubCards: 'Arrange the cards based on place value and parity rules:',
+        u2SolTitleCrypt: '📘 Missing-Digit Puzzle Solution',
+        u2SolSubCrypt: 'Deduce each box using ones-place products and carrying:',
+        correctAnsIs: 'Correct Answer: ',
+        estAnsIs: 'Estimated Result: ',
+        footerTip: 'Review the solution steps, then click Next Question!',
+        reportTitle: 'Practice Complete! Performance Report',
+        startTime: 'Start Time:',
+        endTime: 'End Time:',
+        durationTime: 'Total Duration:',
+        totalCorrect: 'Total Correct:',
+        accuracy: 'Overall Accuracy:',
+        masteryTitle: 'Unit Mastery Analysis',
+        correctTitle: 'Correct Questions',
+        wrongTitle: 'Incorrect / Needs Improvement',
+        noCorrect: 'No questions answered correctly on first try.',
+        noWrong: 'Awesome! Perfect score with zero mistakes!',
+        questionLabel: 'Q{n}',
+        ansLabel: 'Correct Ans',
+        correctAnsLabel: 'Correct Ans',
+        yourAnsLabel: 'Your 1st Try',
+        btnDownload: '💾 Download Report Image',
+        btnRetry: '🔄 Try Again',
+        btnHome: 'Back to Home Menu',
+        modalReturnTitle: 'Return to Home',
+        modalReturnMsg: 'Leaving will reset your current practice progress. Are you sure?',
+        modalCancel: 'Cancel',
+        modalStart: 'Confirm',
+        modalErrorTitle: 'Notice',
+        modalErrorMsg: 'Download failed, please try again: ',
+        modalClose: 'Close'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+      const t = i18n[currentLang];
+      document.getElementById('lang-toggle-btn').innerText = (currentLang === 'zh') ? 'English' : '中文';
+
+      document.getElementById('header-title').innerText = t.appTitle;
+      document.getElementById('home-subtitle').innerText = t.homeSubtitle;
+      document.getElementById('u1-title').innerText = t.u1Title;
+      document.getElementById('u1-desc').innerText = t.u1Desc;
+      document.getElementById('u2-title').innerText = t.u2Title;
+      document.getElementById('u2-desc').innerText = t.u2Desc;
+      document.getElementById('lbl-back-btn').innerText = t.backBtn;
+
+      if (!document.getElementById('page-quiz').classList.contains('hidden')) {
+        const q = questions[currentQIndex];
+        document.getElementById('quiz-mode-name').innerText = (currentMode === 'unit1') ? t.u1Title : t.u2Title;
+        document.getElementById('quiz-progress-text').innerText = `${t.qProgress} ${currentQIndex + 1} / ${questions.length}`;
+        const lvlBadge = document.getElementById('quiz-level-badge');
+        if (q && q.level) {
+          lvlBadge.innerText = q.level === 'easy' ? t.lvlEasy : (q.level === 'medium' ? t.lvlMed : t.lvlHard);
+        }
+        if (currentMode === 'unit2') {
+          if (q.kind === 'estimation') {
+            document.getElementById('question-prompt-text').innerText = t.promptTextEst;
+            document.getElementById('input-prefix-label').innerText = t.inputPrefixEst;
+          } else if (q.kind === 'cards') {
+            document.getElementById('question-prompt-text').innerText = t.promptTextCards;
+            document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
+            document.getElementById('cards-expr-label').innerText = t.cardsExprLabel;
+            document.getElementById('btn-clear-cards').innerText = t.clearExprBtn;
+          } else {
+            document.getElementById('question-prompt-text').innerText = t.promptTextCrypt;
+          }
+        } else {
+          document.getElementById('question-prompt-text').innerText = t.promptTextCalc;
+          document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
+        }
+        document.getElementById('btn-submit').innerText = t.submitBtn;
+        document.getElementById('btn-next').innerText = t.nextBtn;
+        loadQuestionDisplayOnly(true);
+      }
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        const btnSubmit = document.getElementById('btn-submit');
+        const btnNext = document.getElementById('btn-next');
+        if (!btnSubmit.classList.contains('hidden')) {
+          checkAnswer();
+        } else if (!btnNext.classList.contains('hidden')) {
+          nextQuestion();
+        }
+      }
+    }
+
+    // 單元二高階（數字卡）：點擊卡片自動填入下一個空方格
+    function handleCardClick(digit) {
+      const boxes = [
+        document.getElementById('card-box-1'),
+        document.getElementById('card-box-2'),
+        document.getElementById('card-box-3')
+      ];
+      if (!boxes[0] || boxes[0].disabled) return;
+      for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].value.trim() === '') {
+          boxes[i].value = String(digit);
+          if (i < boxes.length - 1) {
+            boxes[i + 1].focus();
+          } else {
+            const ansInput = document.getElementById('answer-input');
+            if (ansInput) ansInput.focus();
+          }
+          return;
+        }
+      }
+    }
+
+    function handleCardSlotInput(el, idx) {
+      el.value = el.value.replace(/[^1-9]/g, '').slice(0, 1);
+      if (el.value.length === 1) {
+        if (idx < 3) {
+          const nextBox = document.getElementById(`card-box-${idx + 1}`);
+          if (nextBox) nextBox.focus();
+        } else {
+          const ansInput = document.getElementById('answer-input');
+          if (ansInput) ansInput.focus();
+        }
+      }
+    }
+
+    function handleCardSlotKeyDown(e, idx) {
+      if (e.key === 'Backspace' && e.target.value === '' && idx > 1) {
+        const prevBox = document.getElementById(`card-box-${idx - 1}`);
+        if (prevBox) prevBox.focus();
+      } else if (e.key === 'Enter') {
+        handleKeyPress(e);
+      }
+    }
+
+    function clearCardSlots() {
+      for (let i = 1; i <= 3; i++) {
+        const box = document.getElementById(`card-box-${i}`);
+        if (box && !box.disabled) box.value = '';
+      }
+      const box1 = document.getElementById('card-box-1');
+      if (box1 && !box1.disabled) box1.focus();
+    }
+
+    // 單元二中階（蟲食算）：雙格輸入與自動跳格
+    function handleCryptInput(el, idx) {
+      el.value = el.value.replace(/[^0-9]/g, '').slice(0, 1);
+      if (el.value.length === 1 && idx === 1) {
+        const box2 = document.getElementById('crypt-box-2');
+        if (box2 && !box2.disabled) box2.focus();
+      }
+    }
+
+    function handleCryptKeyDown(e, idx) {
+      if (e.key === 'Backspace' && e.target.value === '' && idx === 2) {
+        const box1 = document.getElementById('crypt-box-1');
+        if (box1 && !box1.disabled) box1.focus();
+      } else if (e.key === 'Enter') {
+        handleKeyPress(e);
+      }
+    }
+
+    // 陣列洗牌與隨機取樣工具
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function pickRandom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    /*
+      單元一題目生成邏輯（兩位數 × 一位數）：
+      每次產生 10 題不重覆，由難度低至高排序：
+      - 4 題初階（不進位：carry1 === 0 && carry2 === 0）
+      - 3 題中階（一次進位：僅個位進位或僅十位進位）
+      - 3 題高階（連續進位：個位與十位皆有進位）
+    */
+    function generateUnit1Questions() {
+      const easyPool = [];
+      const medPool = [];
+      const hardPool = [];
+
+      for (let num2 = 12; num2 <= 98; num2++) {
+        const tens = Math.floor(num2 / 10);
+        const ones = num2 % 10;
+        if (ones === 0) continue; // 避免過於簡單的整十數
+
+        for (let num1 = 2; num1 <= 9; num1++) {
+          const onesProd = ones * num1;
+          const carry1 = Math.floor(onesProd / 10);
+          const tensTotal = tens * num1 + carry1;
+          const carry2 = Math.floor(tensTotal / 10);
+          const product = num2 * num1;
+
+          const item = {
+            num2,
+            num1,
+            tens,
+            ones,
+            onesProd,
+            carry1,
+            tensTotal,
+            carry2,
+            product,
+            ans: product.toString()
+          };
+
+          if (carry1 === 0 && carry2 === 0) {
+            easyPool.push(item);
+          } else if ((carry1 > 0 && carry2 === 0) || (carry1 === 0 && carry2 > 0)) {
+            medPool.push(item);
+          } else if (carry1 > 0 && carry2 > 0) {
+            hardPool.push(item);
+          }
+        }
+      }
+
+      const pickUnique = (pool, count, levelTag) => {
+        const shuffled = shuffle(pool);
+        const selected = [];
+        const used = new Set();
+        for (const q of shuffled) {
+          const key = `${q.num2}x${q.num1}`;
+          if (!used.has(key)) {
+            used.add(key);
+            const isReversed = Math.random() < 0.25;
+            const exprText = isReversed ? `${q.num1} × ${q.num2}` : `${q.num2} × ${q.num1}`;
+            selected.push({
+              ...q,
+              level: levelTag,
+              isReversed,
+              displayHtml: `${exprText} = ?`,
+              displayText: exprText
+            });
+            if (selected.length === count) break;
+          }
+        }
+        return selected;
+      };
+
+      const easyQs = pickUnique(easyPool, 4, 'easy');
+      const medQs = pickUnique(medPool, 3, 'medium');
+      const hardQs = pickUnique(hardPool, 3, 'hard');
+
+      return [...easyQs, ...medQs, ...hardQs];
+    }
+
+    /*
+      單元二題目生成邏輯（題型特訓）：
+      每次產生 10 題不重覆，由難度低至高排序：
+      - 4 題初階（整十數乘法估算）
+      - 3 題中階（直式蟲食算，唯一解驗證）
+      - 3 題高階（數字卡組最大／最小積，涵蓋最大與最小）
+    */
+    function generateUnit2Questions() {
+      const usedKeys = new Set();
+
+      // 1. 生成 4 題初階估算題
+      const easyList = [];
+      let safety = 0;
+      while (easyList.length < 4 && safety < 500) {
+        safety++;
+        const tens = Math.floor(Math.random() * 8) + 1; // 1..8
+        const onesFull = pickRandom([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const num2 = tens * 10 + onesFull;
+        const num1 = Math.floor(Math.random() * 8) + 2; // 2..9
+        const key = `est_${num2}x${num1}`;
+        if (!usedKeys.has(key)) {
+          usedKeys.add(key);
+          const isRoundUp = onesFull >= 5;
+          const rounded2 = isRoundUp ? (tens + 1) * 10 : tens * 10;
+          const estProd = rounded2 * num1;
+          easyList.push({
+            level: 'easy',
+            kind: 'estimation',
+            key,
+            num2,
+            num1,
+            tens,
+            ones: onesFull,
+            isRoundUp,
+            rounded2,
+            estProd,
+            displayHtml: `${num2} × ${num1}`,
+            displayText: `${num2} × ${num1}（估算）`,
+            ans: estProd.toString()
+          });
+        }
+      }
+
+      // 2. 生成 3 題中階直式蟲食算（patternA, patternB, patternC 各 1 題，並驗證唯一解）
+      const medList = [];
+      const patterns = shuffle(['patternA', 'patternB', 'patternC']);
+
+      for (const pattern of patterns) {
+        let created = false;
+        let inner = 0;
+        while (!created && inner < 800) {
+          inner++;
+          const tens = Math.floor(Math.random() * 8) + 2; // 2..9
+          const ones = Math.floor(Math.random() * 9) + 1; // 1..9
+          const mult = Math.floor(Math.random() * 8) + 2; // 2..9
+          const num2 = tens * 10 + ones;
+          const prod = num2 * mult;
+          if (prod < 100 || prod > 999) continue;
+
+          const pStr = prod.toString();
+          const pH = parseInt(pStr[0], 10);
+          const pT = parseInt(pStr[1], 10);
+          const pO = parseInt(pStr[2], 10);
+
+          if (pattern === 'patternA') {
+            let matches = 0;
+            for (let m = 2; m <= 9; m++) {
+              const pr = num2 * m;
+              if (pr >= 100 && pr <= 999) {
+                const s = pr.toString();
+                if (parseInt(s[0], 10) === pH && parseInt(s[2], 10) === pO) {
+                  matches++;
+                }
+              }
+            }
+            const key = `cryptA_${num2}x${mult}`;
+            if (matches === 1 && !usedKeys.has(key)) {
+              usedKeys.add(key);
+              medList.push({
+                level: 'medium',
+                kind: 'cryptarithm',
+                pattern: 'patternA',
+                key,
+                tens,
+                ones,
+                mult,
+                num2,
+                prod,
+                pH,
+                pT,
+                pO,
+                box1Ans: mult,
+                box2Ans: pT,
+                displayText: `蟲食算：${tens}${ones} × □ = ${pH}□${pO}`,
+                ans: `${mult}, ${pT}`
+              });
+              created = true;
+            }
+          } else if (pattern === 'patternB') {
+            let matches = 0;
+            for (let o = 1; o <= 9; o++) {
+              const pr = (tens * 10 + o) * mult;
+              if (pr >= 100 && pr <= 999) {
+                const s = pr.toString();
+                if (parseInt(s[1], 10) === pT && parseInt(s[2], 10) === pO) {
+                  matches++;
+                }
+              }
+            }
+            const key = `cryptB_${num2}x${mult}`;
+            if (matches === 1 && !usedKeys.has(key)) {
+              usedKeys.add(key);
+              medList.push({
+                level: 'medium',
+                kind: 'cryptarithm',
+                pattern: 'patternB',
+                key,
+                tens,
+                ones,
+                mult,
+                num2,
+                prod,
+                pH,
+                pT,
+                pO,
+                box1Ans: ones,
+                box2Ans: pH,
+                displayText: `蟲食算：${tens}□ × ${mult} = □${pT}${pO}`,
+                ans: `${ones}, ${pH}`
+              });
+              created = true;
+            }
+          } else {
+            let matches = 0;
+            for (let tn = 1; tn <= 9; tn++) {
+              const pr = (tn * 10 + ones) * mult;
+              if (pr >= 100 && pr <= 999) {
+                const s = pr.toString();
+                if (parseInt(s[0], 10) === pH && parseInt(s[1], 10) === pT) {
+                  matches++;
+                }
+              }
+            }
+            const key = `cryptC_${num2}x${mult}`;
+            if (matches === 1 && !usedKeys.has(key)) {
+              usedKeys.add(key);
+              medList.push({
+                level: 'medium',
+                kind: 'cryptarithm',
+                pattern: 'patternC',
+                key,
+                tens,
+                ones,
+                mult,
+                num2,
+                prod,
+                pH,
+                pT,
+                pO,
+                box1Ans: tens,
+                box2Ans: pO,
+                displayText: `蟲食算：□${ones} × ${mult} = ${pH}${pT}□`,
+                ans: `${tens}, ${pO}`
+              });
+              created = true;
+            }
+          }
+        }
+      }
+
+      // 3. 生成 3 題高階數字卡組算式題（涵蓋最大與最小）
+      const hardList = [];
+      const goals = shuffle(['max', 'min', pickRandom(['max', 'min'])]);
+      const parities = shuffle(['any', 'even_only', 'any']);
+
+      for (let i = 0; i < 3; i++) {
+        const goal = goals[i];
+        const parity = parities[i];
+        let created = false;
+        let inner = 0;
+        while (!created && inner < 400) {
+          inner++;
+          const digits = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]).slice(0, 3);
+          if (parity === 'even_only' && !digits.some(d => d % 2 === 0)) continue;
+
+          const sortedKey = `cards_${goal}_${parity}_${[...digits].sort().join('')}`;
+          if (usedKeys.has(sortedKey)) continue;
+
+          const perms = [
+            [digits[0], digits[1], digits[2]],
+            [digits[0], digits[2], digits[1]],
+            [digits[1], digits[0], digits[2]],
+            [digits[1], digits[2], digits[0]],
+            [digits[2], digits[0], digits[1]],
+            [digits[2], digits[1], digits[0]]
+          ];
+
+          const candidates = [];
+          for (const [d1, d2, d3] of perms) {
+            if (parity === 'even_only' && d3 % 2 !== 0) continue;
+            const twoD = d1 * 10 + d2;
+            const prod = twoD * d3;
+            candidates.push({ d1, d2, d3, twoD, prod, expr: `${twoD} × ${d3}` });
+          }
+
+          if (candidates.length === 0) continue;
+
+          candidates.sort((a, b) => (goal === 'max' ? b.prod - a.prod : a.prod - b.prod));
+          const best = candidates[0];
+
+          usedKeys.add(sortedKey);
+          const goalLabelZh = goal === 'max' ? '最大' : '最小';
+          const ruleLabelZh = parity === 'even_only' ? '兩位數乘以一位偶數' : '兩位數乘以一位數';
+          hardList.push({
+            level: 'hard',
+            kind: 'cards',
+            key: sortedKey,
+            cards: digits,
+            goal,
+            parity,
+            candidates,
+            best,
+            displayText: `數卡【${digits.join('】【')}】組「${ruleLabelZh}」${goalLabelZh}積`,
+            ans: best.prod.toString()
+          });
+          created = true;
+        }
+      }
+
+      return [...easyList, ...medList, ...hardList];
+    }
+
+    function startQuiz(mode) {
+      currentMode = mode;
+      if (mode === 'unit1') questions = generateUnit1Questions();
+      else if (mode === 'unit2') questions = generateUnit2Questions();
+
+      currentQIndex = 0;
+      records = [];
+      startTimeObj = new Date();
+
+      document.getElementById('page-home').classList.add('hidden');
+      document.getElementById('page-report').classList.add('hidden');
+      document.getElementById('page-quiz').classList.remove('hidden');
+      document.getElementById('lang-toggle-btn').classList.add('hidden');
+
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      wrongAttempts = 0;
+      const t = i18n[currentLang];
+      const q = questions[currentQIndex];
+
+      const modeName = (currentMode === 'unit1') ? t.u1Title : t.u2Title;
+      document.getElementById('quiz-mode-name').innerText = modeName;
+      document.getElementById('quiz-progress-text').innerText = `${t.qProgress} ${currentQIndex + 1} / ${questions.length}`;
+
+      const lvlBadge = document.getElementById('quiz-level-badge');
+      if (q.level) {
+        lvlBadge.classList.remove('hidden');
+        if (q.level === 'easy') {
+          lvlBadge.className = 'level-badge level-easy';
+          lvlBadge.innerText = t.lvlEasy;
+        } else if (q.level === 'medium') {
+          lvlBadge.className = 'level-badge level-medium';
+          lvlBadge.innerText = t.lvlMed;
+        } else {
+          lvlBadge.className = 'level-badge level-hard';
+          lvlBadge.innerText = t.lvlHard;
+        }
+      } else {
+        lvlBadge.classList.add('hidden');
+      }
+
+      const cardsBuilderRow = document.getElementById('cards-builder-row');
+      const standardInputRow = document.getElementById('standard-input-row');
+
+      if (currentMode === 'unit2') {
+        if (q.kind === 'estimation') {
+          document.getElementById('question-prompt-text').innerText = t.promptTextEst;
+          document.getElementById('input-prefix-label').innerText = t.inputPrefixEst;
+          cardsBuilderRow.classList.add('hidden');
+          standardInputRow.classList.remove('hidden');
+        } else if (q.kind === 'cards') {
+          document.getElementById('question-prompt-text').innerText = t.promptTextCards;
+          document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
+          document.getElementById('cards-expr-label').innerText = t.cardsExprLabel;
+          document.getElementById('btn-clear-cards').innerText = t.clearExprBtn;
+          cardsBuilderRow.classList.remove('hidden');
+          standardInputRow.classList.remove('hidden');
+        } else {
+          document.getElementById('question-prompt-text').innerText = t.promptTextCrypt;
+          cardsBuilderRow.classList.add('hidden');
+          standardInputRow.classList.add('hidden');
+        }
+      } else {
+        document.getElementById('question-prompt-text').innerText = t.promptTextCalc;
+        document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
+        cardsBuilderRow.classList.add('hidden');
+        standardInputRow.classList.remove('hidden');
+      }
+
+      // 切換新題目前先清空題目顯示區，避免殘留上一題的輸入框狀態
+      document.getElementById('math-expr-display').innerHTML = '';
+      loadQuestionDisplayOnly(false);
+
+      const input = document.getElementById('answer-input');
+      input.value = '';
+      input.disabled = false;
+
+      if (currentMode === 'unit2' && q.kind === 'cryptarithm') {
+        const b1 = document.getElementById('crypt-box-1');
+        const b2 = document.getElementById('crypt-box-2');
+        if (b1) {
+          b1.value = '';
+          b1.disabled = false;
+        }
+        if (b2) {
+          b2.value = '';
+          b2.disabled = false;
+        }
+        setTimeout(() => {
+          if (b1) b1.focus();
+        }, 100);
+      } else if (currentMode === 'unit2' && q.kind === 'cards') {
+        for (let idx = 1; idx <= 3; idx++) {
+          const cb = document.getElementById(`card-box-${idx}`);
+          if (cb) {
+            cb.value = '';
+            cb.disabled = false;
+          }
+        }
+        setTimeout(() => {
+          const cb1 = document.getElementById('card-box-1');
+          if (cb1) cb1.focus();
+        }, 100);
+      } else {
+        setTimeout(() => input.focus(), 100);
+      }
+
+      document.getElementById('feedback-area').classList.add('hidden');
+      document.getElementById('feedback-area').innerHTML = '';
+
+      document.getElementById('btn-submit').classList.remove('hidden');
+      document.getElementById('btn-next').classList.add('hidden');
+      document.getElementById('btn-next').innerText = t.nextBtn;
+      document.getElementById('btn-submit').innerText = t.submitBtn;
+    }
+
+    function loadQuestionDisplayOnly(preserveState = false) {
+      const q = questions[currentQIndex];
+      const t = i18n[currentLang];
+      const displayElem = document.getElementById('math-expr-display');
+
+      if (currentMode === 'unit2') {
+        if (q.kind === 'estimation') {
+          displayElem.className = 'math-expression-display';
+          displayElem.innerHTML = `${q.displayHtml}`;
+        } else if (q.kind === 'cards') {
+          displayElem.className = 'cards-question-box';
+          const cardsHTML = q.cards
+            .map(d => `<span class="digit-card clickable" role="button" tabindex="0" onclick="handleCardClick(${d})">${d}</span>`)
+            .join('、');
+
+          if (currentLang === 'zh') {
+            const ruleTxt = q.parity === 'even_only'
+              ? '「兩位數乘以一位<span class="highlight-keyword">偶數</span>」'
+              : '「兩位數乘以一位數」';
+            const goalTxt = q.goal === 'max'
+              ? '<span class="highlight-keyword">最大</span>'
+              : '<span class="highlight-keyword">最小</span>';
+            displayElem.innerHTML = `
+              <div>用數字卡 ${cardsHTML} 和符號卡 <span class="symbol-card">×</span>、<span class="symbol-card">=</span>，組成一道${ruleTxt}的算式，這道算式的結果${goalTxt}是多少？</div>
+              <div style="font-size:0.9rem; color:#4a5568; margin-top:8px; font-weight:500;">${t.cardsClickTip}</div>
+            `;
+          } else {
+            const ruleTxt = q.parity === 'even_only'
+              ? '"2-digit × 1-digit <span class="highlight-keyword">even</span> number"'
+              : '"2-digit × 1-digit number"';
+            const goalTxt = q.goal === 'max'
+              ? '<span class="highlight-keyword">largest</span>'
+              : '<span class="highlight-keyword">smallest</span>';
+            displayElem.innerHTML = `
+              <div>Using number cards ${cardsHTML} and symbol cards <span class="symbol-card">×</span>, <span class="symbol-card">=</span>, form a ${ruleTxt} expression. What is the ${goalTxt} possible product?</div>
+              <div style="font-size:0.9rem; color:#4a5568; margin-top:8px; font-weight:500;">${t.cardsClickTip}</div>
+            `;
+          }
+        } else if (q.kind === 'cryptarithm') {
+          // 僅在切換語言時保留已輸入的數字與鎖定狀態；載入新題目時保持空白
+          const prevB1 = preserveState ? document.getElementById('crypt-box-1') : null;
+          const prevB2 = preserveState ? document.getElementById('crypt-box-2') : null;
+          const v1 = prevB1 ? prevB1.value : '';
+          const v2 = prevB2 ? prevB2.value : '';
+          const isDis = prevB1 ? prevB1.disabled : false;
+
+          displayElem.className = 'crypt-wrapper';
+          const box1HTML = `<input type="text" id="crypt-box-1" class="crypt-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${v1}" ${isDis ? 'disabled' : ''} oninput="handleCryptInput(this, 1)" onkeydown="handleCryptKeyDown(event, 1)">`;
+          const box2HTML = `<input type="text" id="crypt-box-2" class="crypt-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${v2}" ${isDis ? 'disabled' : ''} oninput="handleCryptInput(this, 2)" onkeydown="handleCryptKeyDown(event, 2)">`;
+
+          let gridCells = '';
+          if (q.pattern === 'patternA') {
+            gridCells = `
+              <div></div><div></div><div>${q.tens}</div><div>${q.ones}</div>
+              <div>×</div><div></div><div></div><div>${box1HTML}</div>
+              <div class="crypt-hr"></div>
+              <div></div><div>${q.pH}</div><div>${box2HTML}</div><div>${q.pO}</div>
+            `;
+          } else if (q.pattern === 'patternB') {
+            gridCells = `
+              <div></div><div></div><div>${q.tens}</div><div>${box1HTML}</div>
+              <div>×</div><div></div><div></div><div>${q.mult}</div>
+              <div class="crypt-hr"></div>
+              <div></div><div>${box2HTML}</div><div>${q.pT}</div><div>${q.pO}</div>
+            `;
+          } else {
+            gridCells = `
+              <div></div><div></div><div>${box1HTML}</div><div>${q.ones}</div>
+              <div>×</div><div></div><div></div><div>${q.mult}</div>
+              <div class="crypt-hr"></div>
+              <div></div><div>${q.pH}</div><div>${q.pT}</div><div>${box2HTML}</div>
+            `;
+          }
+
+          displayElem.innerHTML = `
+            <div class="crypt-board">
+              <div class="crypt-grid">${gridCells}</div>
+            </div>
+            <div class="crypt-helper-note">${t.cryptHelper}</div>
+          `;
+        }
+      } else {
+        displayElem.className = 'math-expression-display';
+        displayElem.innerHTML = `${q.displayHtml}`;
+      }
+    }
+
+    // 產生直式乘法圖解與位值題解思路 HTML（單元一專用）
+    function buildVerticalMultiplicationHTML(q) {
+      const t = i18n[currentLang];
+      const prodStr = q.product.toString();
+      const hasHundreds = prodStr.length === 3;
+      const prodH = hasHundreds ? prodStr[0] : '';
+      const prodT = hasHundreds ? prodStr[1] : prodStr[0];
+      const prodO = hasHundreds ? prodStr[2] : prodStr[1];
+
+      const carryTensBadge = q.carry1 > 0 ? `<span class="pink-txt" style="font-size:0.95rem;">${q.carry1}</span>` : '';
+      const carryHundredsBadge = q.carry2 > 0 ? `<span class="pink-txt" style="font-size:0.95rem;">${q.carry2}</span>` : '';
+
+      let step1Text = '';
+      let step2Text = '';
+      let step3Text = '';
+
+      if (currentLang === 'zh') {
+        if (q.carry1 === 0) {
+          step1Text = `<strong>步驟一（先算個位）：</strong>個位 ${q.ones} × ${q.num1} = <span class="pink-txt">${q.onesProd}</span>（不需進位），在個位寫 <span class="pink-txt">${prodO}</span>。`;
+        } else {
+          step1Text = `<strong>步驟一（先算個位）：</strong>個位 ${q.ones} × ${q.num1} = <span class="pink-txt">${q.onesProd}</span>，滿 10 向十位進 <span class="pink-txt">${q.carry1}</span>，在個位寫 <span class="pink-txt">${prodO}</span>。`;
+        }
+
+        if (q.carry1 === 0 && q.carry2 === 0) {
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span>（${q.tensTotal} 個十），在十位寫 <span class="pink-txt">${prodT}</span>。`;
+        } else if (q.carry1 > 0 && q.carry2 === 0) {
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${q.tens * 10 * q.num1}（${q.tens * q.num1} 個十），加上進位的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十，在十位寫 <span class="pink-txt">${prodT}</span>。`;
+        } else if (q.carry1 === 0 && q.carry2 > 0) {
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span>（${q.tensTotal} 個十），滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
+        } else {
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${q.tens * 10 * q.num1}（${q.tens * q.num1} 個十），加上進位的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十；滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
+        }
+
+        const revNote = q.isReversed ? `（利用乘法交換性質：${q.num1} × ${q.num2} = ${q.num2} × ${q.num1}）` : '';
+        step3Text = `<strong>直式拆解合併驗算${revNote}：</strong>把個位積與十位積相加：<span style="color:#3f6212; font-weight:bold;">${q.onesProd}</span> + <span style="color:#9a3412; font-weight:bold;">${q.tens * 10 * q.num1}</span> = <span class="pink-txt">${q.product}</span>`;
+      } else {
+        if (q.carry1 === 0) {
+          step1Text = `<strong>Step 1 (Ones place):</strong> ${q.ones} × ${q.num1} = <span class="pink-txt">${q.onesProd}</span> (no carry). Write <span class="pink-txt">${prodO}</span> in the ones column.`;
+        } else {
+          step1Text = `<strong>Step 1 (Ones place):</strong> ${q.ones} × ${q.num1} = <span class="pink-txt">${q.onesProd}</span>. Carry <span class="pink-txt">${q.carry1}</span> to the tens column and write <span class="pink-txt">${prodO}</span> in the ones column.`;
+        }
+
+        if (q.carry1 === 0 && q.carry2 === 0) {
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span> (${q.tensTotal} tens). Write <span class="pink-txt">${prodT}</span> in the tens column.`;
+        } else if (q.carry1 > 0 && q.carry2 === 0) {
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${q.tens * 10 * q.num1} (${q.tens * q.num1} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Write <span class="pink-txt">${prodT}</span> in the tens column.`;
+        } else if (q.carry1 === 0 && q.carry2 > 0) {
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span> (${q.tensTotal} tens). Carry <span class="pink-txt">${q.carry2}</span> to hundreds; write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
+        } else {
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${q.tens * 10 * q.num1} (${q.tens * q.num1} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
+        }
+
+        const revNote = q.isReversed ? ` (Commutative property: ${q.num1} × ${q.num2} = ${q.num2} × ${q.num1})` : '';
+        step3Text = `<strong>Expanded Sum Check${revNote}:</strong> Add partial products: <span style="color:#3f6212; font-weight:bold;">${q.onesProd}</span> + <span style="color:#9a3412; font-weight:bold;">${q.tens * 10 * q.num1}</span> = <span class="pink-txt">${q.product}</span>`;
+      }
+
+      const compactVerticalHTML = `
+        <div class="v-mult-grid">
+          <div class="v-place-header"></div>
+          <div class="v-place-header">${t.placeH}</div>
+          <div class="v-place-header">${t.placeT}</div>
+          <div class="v-place-header">${t.placeO}</div>
+
+          <div></div>
+          <div></div>
+          <div>${q.tens}</div>
+          <div>${q.ones}</div>
+
+          <div style="color:#4a5568;">×</div>
+          <div></div>
+          <div></div>
+          <div>${q.num1}</div>
+
+          <div class="v-line-top v-carry-row"></div>
+          <div class="v-line-top v-carry-row">${carryHundredsBadge}</div>
+          <div class="v-line-top v-carry-row">${carryTensBadge}</div>
+          <div class="v-line-top v-carry-row"></div>
+
+          <div></div>
+          <div class="pink-txt">${prodH}</div>
+          <div class="pink-txt">${prodT}</div>
+          <div class="pink-txt">${prodO}</div>
+        </div>
+      `;
+
+      let diagramsHTML = '';
+      if (currentMode === 'unit1') {
+        const onesProdStr = q.onesProd.toString();
+        const opT = onesProdStr.length === 2 ? onesProdStr[0] : '';
+        const opO = onesProdStr.length === 2 ? onesProdStr[1] : onesProdStr[0];
+
+        const tensProdVal = q.tens * 10 * q.num1;
+        const tensProdStr = tensProdVal.toString();
+        const tpH = tensProdStr.length === 3 ? tensProdStr[0] : '';
+        const tpT = tensProdStr.length === 3 ? tensProdStr[1] : tensProdStr[0];
+        const tpO = tensProdStr.length === 3 ? tensProdStr[2] : tensProdStr[1];
+
+        const hLabel = currentLang === 'zh' ? '百<br>位' : 'H';
+        const tLabel = currentLang === 'zh' ? '十<br>位' : 'T';
+        const oLabel = currentLang === 'zh' ? '個<br>位' : 'O';
+
+        const expandedGridHTML = hasHundreds ? `
+          <div class="decomp-grid-3">
+            <div></div>
+            <div class="decomp-header">${hLabel}</div>
+            <div class="decomp-header">${tLabel}</div>
+            <div class="decomp-header">${oLabel}</div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+            <div>${q.tens}</div>
+            <div>${q.ones}</div>
+            <div></div>
+
+            <div style="color:#4a5568;">×</div>
+            <div></div>
+            <div></div>
+            <div>${q.num1}</div>
+            <div></div>
+
+            <div class="decomp-hr-3"></div>
+            <div></div>
+
+            <div class="decomp-arrow-green">→</div>
+            <div></div>
+            <div>${opT}</div>
+            <div>${opO}</div>
+            <div><span class="speech-bubble bubble-green">${q.ones} × ${q.num1}</span></div>
+
+            <div class="decomp-arrow-orange">→</div>
+            <div>${tpH}</div>
+            <div>${tpT}</div>
+            <div>${tpO}</div>
+            <div><span class="speech-bubble bubble-orange">${q.tens * 10} × ${q.num1}</span></div>
+
+            <div class="decomp-hr-3"></div>
+            <div></div>
+
+            <div></div>
+            <div class="pink-txt">${prodH}</div>
+            <div class="pink-txt">${prodT}</div>
+            <div class="pink-txt">${prodO}</div>
+            <div><span class="speech-bubble bubble-blue">${q.onesProd} + ${tensProdVal}</span></div>
+          </div>
+        ` : `
+          <div class="decomp-grid-2">
+            <div></div>
+            <div class="decomp-header">${tLabel}</div>
+            <div class="decomp-header">${oLabel}</div>
+            <div></div>
+
+            <div></div>
+            <div>${q.tens}</div>
+            <div>${q.ones}</div>
+            <div></div>
+
+            <div style="color:#4a5568;">×</div>
+            <div></div>
+            <div>${q.num1}</div>
+            <div></div>
+
+            <div class="decomp-hr-2"></div>
+            <div></div>
+
+            <div class="decomp-arrow-green">→</div>
+            <div>${opT}</div>
+            <div>${opO}</div>
+            <div><span class="speech-bubble bubble-green">${q.ones} × ${q.num1}</span></div>
+
+            <div class="decomp-arrow-orange">→</div>
+            <div>${tpT}</div>
+            <div>${tpO}</div>
+            <div><span class="speech-bubble bubble-orange">${q.tens * 10} × ${q.num1}</span></div>
+
+            <div class="decomp-hr-2"></div>
+            <div></div>
+
+            <div></div>
+            <div class="pink-txt">${prodT}</div>
+            <div class="pink-txt">${prodO}</div>
+            <div><span class="speech-bubble bubble-blue">${q.onesProd} + ${tensProdVal}</span></div>
+          </div>
+        `;
+
+        diagramsHTML = `
+          <div class="decomp-wrapper">
+            <div class="decomp-box">
+              <div class="decomp-title">${t.decompMethod1}</div>
+              ${expandedGridHTML}
+            </div>
+            <div class="decomp-box">
+              <div class="decomp-title">${t.decompMethod2}</div>
+              ${compactVerticalHTML}
+            </div>
+          </div>
+        `;
+      } else {
+        diagramsHTML = `
+          <div class="balance-step-container">
+            ${compactVerticalHTML}
+          </div>
+        `;
+      }
+
+      return `
+        ${diagramsHTML}
+        <div class="step-box">
+          <div class="step-line">${step1Text}</div>
+          <div class="step-line">${step2Text}</div>
+          <div class="step-line" style="border-top:1px dashed #e2e8f0; padding-top:6px; margin-top:8px;">${step3Text}</div>
+        </div>
+      `;
+    }
+
+    // 單元二第一次答錯時的具體分步引導
+    function buildUnit2FirstHintHTML(q, options = {}) {
+      const t = i18n[currentLang];
+      const {
+        cardsExprRightOnlyProdWrong = false,
+        userRawAns = '',
+        d1 = null,
+        d2 = null,
+        d3 = null,
+        cryptV1 = null,
+        cryptV2 = null
+      } = options;
+
+      if (q.kind === 'estimation') {
+        return `<div style="margin-top:6px; font-size:0.95rem; color:#744210;">${t.hintU2Est}</div>`;
+      }
+
+      if (q.kind === 'cards') {
+        const sortedDesc = [...q.cards].sort((a, b) => b - a);
+        const sortedAsc = [...q.cards].sort((a, b) => a - b);
+        const sortedUnique = [...q.candidates].sort((a, b) => (q.goal === 'max' ? b.prod - a.prod : a.prod - b.prod));
+
+        if (cardsExprRightOnlyProdWrong) {
+          const onesProd = d2 * d3;
+          const tensProd = d1 * 10 * d3;
+          if (currentLang === 'zh') {
+            return `
+              <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
+                <div class="step-line" style="color:#22543d; font-weight:bold;">✔ 太好了！你組成的算式 <strong>${d1}${d2} × ${d3}</strong> 完全正確！</div>
+                <div class="step-line">但乘積計算有誤（你剛才算得 <strong>${userRawAns}</strong>）。請分兩步用直式再算一次：</div>
+                <div class="step-line">1. 先算個位：<strong>${d2} × ${d3} = ${onesProd}</strong></div>
+                <div class="step-line">2. 再算十位：<strong>${d1 * 10} × ${d3} = ${tensProd}</strong>，最後把兩部分加起來！</div>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
+                <div class="step-line" style="color:#22543d; font-weight:bold;">✔ Great! Your expression <strong>${d1}${d2} × ${d3}</strong> is completely right!</div>
+                <div class="step-line">However, the product (${userRawAns}) needs re-checking. Calculate step by step:</div>
+                <div class="step-line">1. Ones: <strong>${d2} × ${d3} = ${onesProd}</strong></div>
+                <div class="step-line">2. Tens: <strong>${d1 * 10} × ${d3} = ${tensProd}</strong>, then add them together!</div>
+              </div>
+            `;
+          }
+        }
+
+        const parityViolated = (q.parity === 'even_only') && d3 !== null && (d3 % 2 !== 0);
+        const evenCards = sortedDesc.filter(d => d % 2 === 0);
+        const topTwo = sortedUnique.slice(0, 2);
+
+        if (currentLang === 'zh') {
+          const parityAlert = parityViolated
+            ? `<div class="step-line" style="color:#c53030; font-weight:bold;">⚠ 留意條件：你剛才把奇數 <strong>${d3}</strong> 放在乘數（× 後面），但題目要求乘以「一位<strong>偶數</strong>」！這三張卡中，偶數只有 <strong>${evenCards.join('、')}</strong>。</div>`
+            : '';
+
+          const step1 = (q.parity === 'even_only')
+            ? `<strong>引導步驟一（先鎖定一位偶數乘數）：</strong>這三張卡中，偶數是 <span class="pink-txt">${evenCards.join('、')}</span>，所以一位數乘數（× 後面）只能放偶數卡！`
+            : (q.goal === 'max'
+                ? `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由大至小排好：<strong>${sortedDesc.join(' > ')}</strong>。要令乘積<span class="pink-txt">最大</span>，應把較大的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」。`
+                : `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由小至大排好：<strong>${sortedAsc.join(' < ')}</strong>。要令乘積<span class="pink-txt">最小</span>，應把較小的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」。`);
+
+          const compareTip = topTwo.length >= 2
+            ? `<strong>引導步驟二（比較關鍵組合）：</strong>試比較「<strong>${topTwo[0].expr}</strong>」和「<strong>${topTwo[1].expr}</strong>」這兩種排法，算一算哪一道算式的積${q.goal === 'max' ? '更大' : '更小'}！`
+            : `<strong>引導步驟二（排好兩位數）：</strong>確定乘數為 <strong>${topTwo[0].d3}</strong> 後，把餘下兩張卡按「${q.goal === 'max' ? '大數在十位、小數在個位' : '小數在十位、大數在個位'}」排成 <strong>${topTwo[0].expr}</strong>，再計算結果！`;
+
+          return `
+            <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
+              ${parityAlert}
+              <div class="step-line">${step1}</div>
+              <div class="step-line">${compareTip}</div>
+            </div>
+          `;
+        } else {
+          const parityAlert = parityViolated
+            ? `<div class="step-line" style="color:#c53030; font-weight:bold;">⚠ Rule check: You placed odd digit <strong>${d3}</strong> as the multiplier, but the question requires an <strong>even</strong> 1-digit multiplier (available even card: <strong>${evenCards.join(', ')}</strong>).</div>`
+            : '';
+
+          const step1 = (q.parity === 'even_only')
+            ? `<strong>Step 1 (Pick an even multiplier):</strong> Among your cards, only <span class="pink-txt">${evenCards.join(', ')}</span> is even, so it must go into the 1-digit multiplier box!`
+            : (q.goal === 'max'
+                ? `<strong>Step 1 (Place value strategy):</strong> Order the cards: <strong>${sortedDesc.join(' > ')}</strong>. For the <span class="pink-txt">largest</span> product, place the two largest digits in the <strong>1-digit multiplier</strong> and the <strong>tens place</strong>.`
+                : `<strong>Step 1 (Place value strategy):</strong> Order the cards: <strong>${sortedAsc.join(' < ')}</strong>. For the <span class="pink-txt">smallest</span> product, place the two smallest digits in the <strong>1-digit multiplier</strong> and the <strong>tens place</strong>.`);
+
+          const compareTip = topTwo.length >= 2
+            ? `<strong>Step 2 (Compare key expressions):</strong> Compare <strong>${topTwo[0].expr}</strong> and <strong>${topTwo[1].expr}</strong> to see which gives the ${q.goal === 'max' ? 'larger' : 'smaller'} product!`
+            : `<strong>Step 2 (Arrange & multiply):</strong> With multiplier <strong>${topTwo[0].d3}</strong>, form <strong>${topTwo[0].expr}</strong> and calculate the product!`;
+
+          return `
+            <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
+              ${parityAlert}
+              <div class="step-line">${step1}</div>
+              <div class="step-line">${compareTip}</div>
+            </div>
+          `;
+        }
+      }
+
+      // 中階：直式蟲食算具體推理引導
+      const box1Right = (cryptV1 !== null && cryptV1 === q.box1Ans);
+      const box2Right = (cryptV2 !== null && cryptV2 === q.box2Ans);
+
+      let partialPraise = '';
+      if (currentLang === 'zh') {
+        if (box1Right) {
+          partialPraise = `<div class="step-line" style="color:#22543d; font-weight:bold;">✔ 很棒！你填的第一個方格（上方方格 = <strong>${q.box1Ans}</strong>）已經答對，我們已為你保留，請繼續完成下方方格！</div>`;
+        } else if (box2Right) {
+          partialPraise = `<div class="step-line" style="color:#22543d; font-weight:bold;">✔ 很棒！你填的第二個方格（下方方格 = <strong>${q.box2Ans}</strong>）已經答對，我們已為你保留，請繼續完成上方方格！</div>`;
+        }
+      } else {
+        if (box1Right) {
+          partialPraise = `<div class="step-line" style="color:#22543d; font-weight:bold;">✔ Nice! Your top box (<strong>${q.box1Ans}</strong>) is already correct and kept for you. Now find the bottom box!</div>`;
+        } else if (box2Right) {
+          partialPraise = `<div class="step-line" style="color:#22543d; font-weight:bold;">✔ Nice! Your bottom box (<strong>${q.box2Ans}</strong>) is already correct and kept for you. Now find the top box!</div>`;
+        }
+      }
+
+      let c1 = '', c2 = '';
+      if (q.pattern === 'patternA') {
+        const matchingMs = [];
+        for (let m = 2; m <= 9; m++) {
+          if ((q.ones * m) % 10 === q.pO) matchingMs.push(m);
+        }
+        if (currentLang === 'zh') {
+          c1 = `<strong>引導步驟一（先看個位推算上方方格）：</strong>看個位數字，<strong>${q.ones} × [上方方格]</strong> 的尾數是 <strong>${q.pO}</strong>。想一想 ${q.ones} 的乘法表，乘積尾數是 ${q.pO} 的一位數乘數有：<span class="pink-txt">${matchingMs.join(' 或 ')}</span>。`;
+          c2 = `<strong>引導步驟二（結合百位確定並算十位）：</strong>十位是 ${q.tens}（即 ${q.tens * 10}），乘以 [上方方格] 加上進位後要等於 <strong>${q.pH}00 多</strong>；確定上方方格後，用直式算出完整乘積，十位數字就是下方方格！`;
+        } else {
+          c1 = `<strong>Step 1 (Deduce top box from ones):</strong> In the ones column, <strong>${q.ones} × [top box]</strong> ends in <strong>${q.pO}</strong>. From the ${q.ones} times table, the multiplier can be <span class="pink-txt">${matchingMs.join(' or ')}</span>.`;
+          c2 = `<strong>Step 2 (Check hundreds & find tens):</strong> ${q.tens * 10} × [top box] plus carry must give <strong>${q.pH}00+</strong>. Once you find the top box, multiply to get the tens digit for the bottom box!`;
+        }
+      } else if (q.pattern === 'patternB') {
+        const matchingOs = [];
+        for (let o = 1; o <= 9; o++) {
+          if ((o * q.mult) % 10 === q.pO) matchingOs.push(o);
+        }
+        if (currentLang === 'zh') {
+          c1 = `<strong>引導步驟一（先看個位推算上方方格）：</strong>看個位數字，<strong>[上方方格] × ${q.mult}</strong> 的尾數是 <strong>${q.pO}</strong>。想一想 ${q.mult} 的乘法表，尾數是 ${q.pO} 的一位數有：<span class="pink-txt">${matchingOs.join(' 或 ')}</span>。`;
+          c2 = `<strong>引導步驟二（利用十位進位鎖定答案）：</strong>十位是 <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>（${q.tens * q.mult} 個十）。看看上面候選數字乘以 ${q.mult} 時向十位進了多少，加上 ${q.tens * q.mult} 後要等於 <strong>${q.pH}${q.pT}</strong>（十位必須是 ${q.pT}），就能同時確定上方與下方（百位）方格！`;
+        } else {
+          c1 = `<strong>Step 1 (Deduce top box from ones):</strong> <strong>[top box] × ${q.mult}</strong> ends in <strong>${q.pO}</strong>. From the ${q.mult} times table, the digit can be <span class="pink-txt">${matchingOs.join(' or ')}</span>.`;
+          c2 = `<strong>Step 2 (Use tens carry to lock in):</strong> Tens <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>. Add the carry from the ones multiplication so the total tens equal <strong>${q.pH}${q.pT}</strong> (tens digit ${q.pT})!`;
+        }
+      } else {
+        const onesProd = q.ones * q.mult;
+        const carry1 = Math.floor(onesProd / 10);
+        if (currentLang === 'zh') {
+          c1 = `<strong>引導步驟一（先算個位求下方方格）：</strong>個位可以直接相乘！計算 <strong>${q.ones} × ${q.mult} = ${onesProd}</strong>，所以積的個位（下方方格）就是 <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? `（並記得向十位進 <span class="pink-txt">${carry1}</span>）` : '（個位不需進位）'}。`;
+          c2 = `<strong>引導步驟二（反推十位求上方方格）：</strong>看十位，<strong>[上方方格] × ${q.mult}</strong>${carry1 > 0 ? ` 加上進位的 <strong>${carry1}</strong>` : ''} 要等於 <strong>${q.pH}${q.pT}</strong>（即 ${q.pH * 10 + q.pT}）。想一想 ${q.mult} 乘以幾${carry1 > 0 ? `再加 ${carry1}` : ''} 會等於 ${q.pH * 10 + q.pT}？`;
+        } else {
+          c1 = `<strong>Step 1 (Calculate bottom box directly):</strong> Multiply the ones: <strong>${q.ones} × ${q.mult} = ${onesProd}</strong>, so the bottom box is <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? ` (carry <span class="pink-txt">${carry1}</span> to tens)` : ''}.`;
+          c2 = `<strong>Step 2 (Deduce top tens box):</strong> <strong>[top box] × ${q.mult}</strong>${carry1 > 0 ? ` + carry <strong>${carry1}</strong>` : ''} = <strong>${q.pH}${q.pT}</strong> (${q.pH * 10 + q.pT}). Find which digit fits the top box!`;
+        }
+      }
+
+      return `
+        <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
+          ${partialPraise}
+          <div class="step-line">${c1}</div>
+          <div class="step-line">${c2}</div>
+        </div>
+      `;
+    }
+
+    // 單元二題解思路生成器（涵蓋估算、數卡、蟲食算）
+    function buildUnit2SolutionHTML(q) {
+      const t = i18n[currentLang];
+
+      if (q.kind === 'estimation') {
+        const roundRuleZh = q.isRoundUp
+          ? `個位數字是 <span class="pink-txt">${q.ones}</span>（滿 5），向十位進 1，所以 <strong>${q.num2}</strong> 四捨五入至整十數約是 <span class="pink-txt">${q.rounded2}</span>。`
+          : `個位數字是 <span class="pink-txt">${q.ones}</span>（小於 5），直接捨去，所以 <strong>${q.num2}</strong> 四捨五入至整十數約是 <span class="pink-txt">${q.rounded2}</span>。`;
+        const roundRuleEn = q.isRoundUp
+          ? `The ones digit is <span class="pink-txt">${q.ones}</span> (≥ 5), so round up: <strong>${q.num2}</strong> rounds to <span class="pink-txt">${q.rounded2}</span>.`
+          : `The ones digit is <span class="pink-txt">${q.ones}</span> (< 5), so round down: <strong>${q.num2}</strong> rounds to <span class="pink-txt">${q.rounded2}</span>.`;
+
+        const step1 = currentLang === 'zh'
+          ? `<strong>步驟一（四捨五入至整十數）：</strong>觀察 ${q.num2}，${roundRuleZh}`
+          : `<strong>Step 1 (Round to nearest ten):</strong> Look at ${q.num2}. ${roundRuleEn}`;
+        const step2 = currentLang === 'zh'
+          ? `<strong>步驟二（整十數乘一位數）：</strong>計算 ${q.rounded2} × ${q.num1} = <span class="pink-txt">${q.estProd}</span>。`
+          : `<strong>Step 2 (Multiply by 1-digit):</strong> Calculate ${q.rounded2} × ${q.num1} = <span class="pink-txt">${q.estProd}</span>.`;
+
+        return `
+          <div class="vertical-solution-card">
+            <div class="solution-header">${t.u2SolTitleEst}</div>
+            <div class="solution-sub">${t.u2SolSubEst}</div>
+            <div class="balance-step-container">
+              <div class="est-visual-row">
+                <span>${q.num2} × ${q.num1}</span>
+                <span>≈</span>
+                <span class="est-pill">${q.rounded2} × ${q.num1}</span>
+                <span>=</span>
+                <span class="pink-txt">${q.estProd}</span>
+              </div>
+            </div>
+            <div class="step-box">
+              <div class="step-line">${step1}</div>
+              <div class="step-line">${step2}</div>
+            </div>
+            <div class="solution-footer-ans">${t.estAnsIs} <strong style="color:#e53e3e; font-size:1.3rem;">${q.ans}</strong></div>
+            <div class="solution-footer-tip">${t.footerTip}</div>
+          </div>
+        `;
+      }
+
+      if (q.kind === 'cards') {
+        const sortedDesc = [...q.cards].sort((a, b) => b - a);
+        const sortedAsc = [...q.cards].sort((a, b) => a - b);
+        const sortedCandidates = [...q.candidates].sort((a, b) => (q.goal === 'max' ? b.prod - a.prod : a.prod - b.prod));
+        const allListStr = sortedCandidates
+          .map(c => c.prod === q.best.prod ? `<strong style="color:#e53e3e;">${c.expr} = ${c.prod}</strong>` : `${c.expr} = ${c.prod}`)
+          .join('　；　');
+
+        let s1 = '', s2 = '', s3 = '';
+        if (currentLang === 'zh') {
+          if (q.parity === 'even_only') {
+            const evenCards = sortedDesc.filter(d => d % 2 === 0);
+            s1 = `<strong>步驟一（先看一位數乘數條件）：</strong>題目規定乘數必須是「一位偶數」，可用偶數卡為 <span class="pink-txt">${evenCards.join('、')}</span>，因此必須把偶數卡放在一位數乘數的位置。`;
+          } else {
+            s1 = q.goal === 'max'
+              ? `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由大至小排列為 ${sortedDesc.join(' > ')}。要令乘積最大，優先把最大數字作為一位數乘數，其次放在兩位數的十位。`
+              : `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由小至大排列為 ${sortedAsc.join(' < ')}。要令乘積最小，優先把最小數字作為一位數乘數，其次放在兩位數的十位。`;
+          }
+          if (sortedCandidates.length >= 2) {
+            const cFirst = sortedCandidates[0];
+            const cSecond = sortedCandidates[1];
+            s2 = q.goal === 'max'
+              ? `<strong>步驟二（關鍵算式對比）：</strong>比較最大的兩個候選算式：<strong>${cFirst.expr} = <span class="pink-txt">${cFirst.prod}</span></strong> 與 ${cSecond.expr} = ${cSecond.prod}，因為 ${cFirst.prod} > ${cSecond.prod}，所以最大算式是 <strong>${cFirst.expr} = <span class="pink-txt">${cFirst.prod}</span></strong>。`
+              : `<strong>步驟二（關鍵算式對比）：</strong>比較最小的兩個候選算式：<strong>${cFirst.expr} = <span class="pink-txt">${cFirst.prod}</span></strong> 與 ${cSecond.expr} = ${cSecond.prod}，因為 ${cFirst.prod} < ${cSecond.prod}，所以最小算式是 <strong>${cFirst.expr} = <span class="pink-txt">${cFirst.prod}</span></strong>。`;
+          } else {
+            s2 = `<strong>步驟二（組成最佳算式）：</strong>餘下兩張卡按位值排好，得到唯一符合條件的最大／最小算式：<strong>${q.best.expr} = <span class="pink-txt">${q.best.prod}</span></strong>。`;
+          }
+          s3 = `<strong>所有符合條件算式比較：</strong>${allListStr}`;
+        } else {
+          if (q.parity === 'even_only') {
+            const evenCards = sortedDesc.filter(d => d % 2 === 0);
+            s1 = `<strong>Step 1 (Check multiplier rule):</strong> The 1-digit multiplier must be even, so the valid even card(s): <span class="pink-txt">${evenCards.join(', ')}</span>.`;
+          } else {
+            s1 = q.goal === 'max'
+              ? `<strong>Step 1 (Arrange digits):</strong> Order the cards from largest to smallest: ${sortedDesc.join(' > ')}. Put larger digits in the multiplier and tens place.`
+              : `<strong>Step 1 (Arrange digits):</strong> Order the cards from smallest to largest: ${sortedAsc.join(' < ')}. Put smaller digits in the multiplier and tens place.`;
+          }
+          s2 = `<strong>Step 2 (Optimal expression):</strong> Among all valid arrangements, <strong>${q.best.expr} = <span class="pink-txt">${q.best.prod}</span></strong> gives the ${q.goal === 'max' ? 'largest' : 'smallest'} product.`;
+          s3 = `<strong>All valid expressions:</strong> ${allListStr}`;
+        }
+
+        return `
+          <div class="vertical-solution-card">
+            <div class="solution-header">${t.u2SolTitleCards}</div>
+            <div class="solution-sub">${t.u2SolSubCards}</div>
+            <div class="balance-step-container">
+              <div style="font-size:1.55rem; font-weight:bold; color:#1a365d;">
+                ${q.best.expr} = <span class="pink-txt">${q.best.prod}</span>
+              </div>
+            </div>
+            <div class="step-box">
+              <div class="step-line">${s1}</div>
+              <div class="step-line">${s2}</div>
+              <div class="step-line" style="border-top:1px dashed #e2e8f0; padding-top:6px; margin-top:8px;">${s3}</div>
+            </div>
+            <div class="solution-footer-ans">${t.correctAnsIs} <strong style="color:#e53e3e; font-size:1.3rem;">${q.ans}</strong></div>
+            <div class="solution-footer-tip">${t.footerTip}</div>
+          </div>
+        `;
+      }
+
+      // 蟲食算題解（patternA / patternB / patternC，完整列出候選乘法表驗證）
+      const sBox1 = `<span class="crypt-solved-box">${q.box1Ans}</span>`;
+      const sBox2 = `<span class="crypt-solved-box">${q.box2Ans}</span>`;
+      let solvedGrid = '';
+      let d1 = '', d2 = '';
+
+      if (q.pattern === 'patternA') {
+        solvedGrid = `
+          <div></div><div></div><div>${q.tens}</div><div>${q.ones}</div>
+          <div>×</div><div></div><div></div><div>${sBox1}</div>
+          <div class="crypt-hr"></div>
+          <div></div><div>${q.pH}</div><div>${sBox2}</div><div>${q.pO}</div>
+        `;
+        const carry1 = Math.floor((q.ones * q.mult) / 10);
+        const candidatesM = [];
+        for (let m = 2; m <= 9; m++) {
+          if ((q.ones * m) % 10 === q.pO) {
+            candidatesM.push(`${q.ones} × ${m} = ${q.ones * m}（${q.num2} × ${m} = ${q.num2 * m}）`);
+          }
+        }
+        if (currentLang === 'zh') {
+          d1 = `<strong>步驟一（推算乘數方格）：</strong>看個位，${q.ones} × □ 的尾數是 ${q.pO}。檢驗 ${q.ones} 的乘法表：<span class="pink-txt">${candidatesM.join('；')}</span>。只有乘數為 <span class="pink-txt">${q.mult}</span> 時，積的百位才是 ${q.pH}，因此上方方格填 <span class="pink-txt">${q.mult}</span>。`;
+          d2 = `<strong>步驟二（計算完整直式得積的十位）：</strong>計算 ${q.num2} × ${q.mult}：個位寫 ${q.pO}${carry1 > 0 ? `、向十位進 ${carry1}` : ''}；十位 ${q.tens} × ${q.mult}${carry1 > 0 ? ` + ${carry1}` : ''} = ${q.tens * q.mult + carry1}，所以積的十位（下方方格）是 <span class="pink-txt">${q.pT}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+        } else {
+          d1 = `<strong>Step 1 (Find multiplier box):</strong> In the ones place, ${q.ones} × □ ends in ${q.pO}. Checking candidates: ${candidatesM.join('; ')}. Only <span class="pink-txt">${q.mult}</span> gives hundreds digit ${q.pH}.`;
+          d2 = `<strong>Step 2 (Find product tens box):</strong> Multiply ${q.num2} × ${q.mult} = ${q.prod}, so the product's tens box is <span class="pink-txt">${q.pT}</span>.`;
+        }
+      } else if (q.pattern === 'patternB') {
+        solvedGrid = `
+          <div></div><div></div><div>${q.tens}</div><div>${sBox1}</div>
+          <div>×</div><div></div><div></div><div>${q.mult}</div>
+          <div class="crypt-hr"></div>
+          <div></div><div>${sBox2}</div><div>${q.pT}</div><div>${q.pO}</div>
+        `;
+        const carry1 = Math.floor((q.ones * q.mult) / 10);
+        const candidatesO = [];
+        for (let o = 1; o <= 9; o++) {
+          if ((o * q.mult) % 10 === q.pO) {
+            const c = Math.floor((o * q.mult) / 10);
+            candidatesO.push(`填 ${o} 時：${o} × ${q.mult} = ${o * q.mult}${c > 0 ? `（進 ${c}，十位得 ${q.tens * q.mult} + ${c} = ${q.tens * q.mult + c}）` : `（無進位，十位得 ${q.tens * q.mult}）`}`);
+          }
+        }
+        if (currentLang === 'zh') {
+          d1 = `<strong>步驟一（推算個位方格）：</strong>看個位，□ × ${q.mult} 的尾數是 ${q.pO}。檢驗 ${q.mult} 的乘法表：<span class="pink-txt">${candidatesO.join('；')}</span>。要令十位與百位合起來等於 ${q.pH}${q.pT}，上方方格必為 <span class="pink-txt">${q.ones}</span>。`;
+          d2 = `<strong>步驟二（推算積的百位方格）：</strong>十位 ${q.tens} × ${q.mult} + ${carry1} = <span class="pink-txt">${q.pH}${q.pT}</span>，向百位進 <span class="pink-txt">${q.pH}</span>，因此積的百位（下方方格）是 <span class="pink-txt">${q.pH}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+        } else {
+          d1 = `<strong>Step 1 (Find ones box):</strong> □ × ${q.mult} ends in ${q.pO}, and ${q.tens} × ${q.mult} + carry ends in ${q.pT}, so the ones box is <span class="pink-txt">${q.ones}</span> (${q.ones} × ${q.mult} = ${q.ones * q.mult}).`;
+          d2 = `<strong>Step 2 (Find hundreds box):</strong> Tens ${q.tens} × ${q.mult} + ${carry1} = ${q.pH}${q.pT}, so the hundreds box is <span class="pink-txt">${q.pH}</span> (${q.num2} × ${q.mult} = ${q.prod}).`;
+        }
+      } else {
+        solvedGrid = `
+          <div></div><div></div><div>${sBox1}</div><div>${q.ones}</div>
+          <div>×</div><div></div><div></div><div>${q.mult}</div>
+          <div class="crypt-hr"></div>
+          <div></div><div>${q.pH}</div><div>${q.pT}</div><div>${sBox2}</div>
+        `;
+        const onesProd = q.ones * q.mult;
+        const carry1 = Math.floor(onesProd / 10);
+        const tensTarget = q.pH * 10 + q.pT;
+        if (currentLang === 'zh') {
+          d1 = `<strong>步驟一（推算積的個位方格）：</strong>個位 ${q.ones} × ${q.mult} = ${onesProd}，所以積的個位（下方方格）是 <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? `（並向十位進 ${carry1}）` : ''}。`;
+          d2 = `<strong>步驟二（推算十位方格）：</strong>十位 □ × ${q.mult}${carry1 > 0 ? ` + 進位 ${carry1}` : ''} = ${tensTarget}，所以 □ × ${q.mult} = ${tensTarget - carry1}，可知上方十位方格是 <span class="pink-txt">${q.tens}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+        } else {
+          d1 = `<strong>Step 1 (Find product ones box):</strong> Ones ${q.ones} × ${q.mult} = ${onesProd}, so the product's ones box is <span class="pink-txt">${q.pO}</span> (carry ${carry1}).`;
+          d2 = `<strong>Step 2 (Find tens box):</strong> Tens □ × ${q.mult} + ${carry1} = ${tensTarget}, so the tens box is <span class="pink-txt">${q.tens}</span> (${q.num2} × ${q.mult} = ${q.prod}).`;
+        }
+      }
+
+      const ansSummary = currentLang === 'zh'
+        ? `上方方格填 <strong style="color:#e53e3e; font-size:1.3rem;">${q.box1Ans}</strong>，下方方格填 <strong style="color:#e53e3e; font-size:1.3rem;">${q.box2Ans}</strong>（${q.num2} × ${q.mult} = ${q.prod}）`
+        : `Top box = <strong style="color:#e53e3e; font-size:1.3rem;">${q.box1Ans}</strong>, Bottom box = <strong style="color:#e53e3e; font-size:1.3rem;">${q.box2Ans}</strong> (${q.num2} × ${q.mult} = ${q.prod})`;
+
+      return `
+        <div class="vertical-solution-card">
+          <div class="solution-header">${t.u2SolTitleCrypt}</div>
+          <div class="solution-sub">${t.u2SolSubCrypt}</div>
+          <div class="balance-step-container">
+            <div class="crypt-grid">${solvedGrid}</div>
+          </div>
+          <div class="step-box">
+            <div class="step-line">${d1}</div>
+            <div class="step-line">${d2}</div>
+          </div>
+          <div class="solution-footer-ans">${t.correctAnsIs} ${ansSummary}</div>
+          <div class="solution-footer-tip">${t.footerTip}</div>
+        </div>
+      `;
+    }
+
+    // 產生錯題步驟卡片
+    function renderSolutionCard(q) {
+      if (currentMode === 'unit2') {
+        return buildUnit2SolutionHTML(q);
+      }
+      const t = i18n[currentLang];
+      const verticalHTML = buildVerticalMultiplicationHTML(q);
+
+      return `
+        <div class="vertical-solution-card">
+          <div class="solution-header">${t.verticalSolutionTitle}</div>
+          <div class="solution-sub">${t.verticalSolutionSub}</div>
+          ${verticalHTML}
+          <div class="solution-footer-ans">${t.correctAnsIs} <strong style="color:#e53e3e; font-size:1.3rem;">${q.ans}</strong></div>
+          <div class="solution-footer-tip">${t.footerTip}</div>
+        </div>
+      `;
+    }
+
+    function checkAnswer() {
+      const q = questions[currentQIndex];
+      const t = i18n[currentLang];
+      const feedback = document.getElementById('feedback-area');
+      const input = document.getElementById('answer-input');
+
+      let isCorrect = false;
+      let valStr = '';
+      let cardsExprRightOnlyProdWrong = false;
+      let cardD1 = null, cardD2 = null, cardD3 = null, cardUserRaw = '';
+      let cryptV1Num = null, cryptV2Num = null;
+
+      if (currentMode === 'unit2' && q.kind === 'cryptarithm') {
+        const b1 = document.getElementById('crypt-box-1');
+        const b2 = document.getElementById('crypt-box-2');
+        const v1 = b1 ? b1.value.trim() : '';
+        const v2 = b2 ? b2.value.trim() : '';
+        if (v1 === '') {
+          if (b1) b1.focus();
+          return;
+        }
+        if (v2 === '') {
+          if (b2) b2.focus();
+          return;
+        }
+        cryptV1Num = parseInt(v1, 10);
+        cryptV2Num = parseInt(v2, 10);
+        valStr = `${v1}, ${v2}`;
+        isCorrect = (cryptV1Num === q.box1Ans && cryptV2Num === q.box2Ans);
+      } else if (currentMode === 'unit2' && q.kind === 'cards') {
+        const cb1 = document.getElementById('card-box-1');
+        const cb2 = document.getElementById('card-box-2');
+        const cb3 = document.getElementById('card-box-3');
+        const d1 = cb1 ? cb1.value.trim() : '';
+        const d2 = cb2 ? cb2.value.trim() : '';
+        const d3 = cb3 ? cb3.value.trim() : '';
+
+        if (d1 === '' || d2 === '' || d3 === '') {
+          feedback.className = "feedback-box feedback-warning";
+          feedback.innerHTML = `<div><strong>${t.errIncompleteExpr}</strong></div>`;
+          feedback.classList.remove('hidden');
+          if (d1 === '' && cb1) cb1.focus();
+          else if (d2 === '' && cb2) cb2.focus();
+          else if (cb3) cb3.focus();
+          return;
+        }
+
+        cardD1 = parseInt(d1, 10);
+        cardD2 = parseInt(d2, 10);
+        cardD3 = parseInt(d3, 10);
+        const enteredSorted = [cardD1, cardD2, cardD3].sort((a, b) => a - b);
+        const targetCardsSorted = [...q.cards].sort((a, b) => a - b);
+        const cardsMatch = enteredSorted.every((val, idx) => val === targetCardsSorted[idx]);
+        if (!cardsMatch) {
+          feedback.className = "feedback-box feedback-warning";
+          feedback.innerHTML = `<div><strong>${t.errInvalidCards}</strong></div>`;
+          feedback.classList.remove('hidden');
+          return;
+        }
+
+        const rawAns = input.value.trim();
+        if (rawAns === '') {
+          input.focus();
+          return;
+        }
+        cardUserRaw = rawAns;
+
+        const formedTwoDigit = cardD1 * 10 + cardD2;
+        const formedMult = cardD3;
+        const formedProd = formedTwoDigit * formedMult;
+        const userProd = parseInt(rawAns, 10);
+        const parityOk = (q.parity !== 'even_only') || (formedMult % 2 === 0);
+
+        valStr = `${formedTwoDigit} × ${formedMult} = ${rawAns}`;
+        isCorrect = parityOk && (formedProd === q.best.prod) && !isNaN(userProd) && (userProd === q.best.prod) && /^-?\d+$/.test(rawAns);
+
+        if (!isCorrect && parityOk && formedProd === q.best.prod) {
+          cardsExprRightOnlyProdWrong = true;
+        }
+      } else {
+        valStr = input.value.trim();
+        if (valStr === '') return;
+        const userNum = parseInt(valStr, 10);
+        const targetNum = parseInt(q.ans, 10);
+        isCorrect = !isNaN(userNum) && userNum === targetNum && /^-?\d+$/.test(valStr);
+      }
+
+      if (!records[currentQIndex]) {
+        records[currentQIndex] = {
+          qIndex: currentQIndex + 1,
+          questionObj: q,
+          targetAns: q.ans,
+          userFirstWrong: null,
+          isCorrectOnFirstTry: false,
+          solved: false
+        };
+      }
+
+      if (isCorrect) {
+        if (wrongAttempts === 0) {
+          records[currentQIndex].isCorrectOnFirstTry = true;
+        }
+        records[currentQIndex].solved = true;
+
+        const randomPraise = t.praise[Math.floor(Math.random() * t.praise.length)];
+        feedback.className = "feedback-box feedback-success";
+        feedback.innerHTML = `<strong>${randomPraise}</strong>`;
+        feedback.classList.remove('hidden');
+
+        if (currentMode === 'unit2' && q.kind === 'cryptarithm') {
+          const b1 = document.getElementById('crypt-box-1');
+          const b2 = document.getElementById('crypt-box-2');
+          if (b1) b1.disabled = true;
+          if (b2) b2.disabled = true;
+        } else if (currentMode === 'unit2' && q.kind === 'cards') {
+          for (let idx = 1; idx <= 3; idx++) {
+            const cb = document.getElementById(`card-box-${idx}`);
+            if (cb) cb.disabled = true;
+          }
+          input.disabled = true;
+        } else {
+          input.disabled = true;
+        }
+
+        document.getElementById('btn-submit').classList.add('hidden');
+        document.getElementById('btn-next').classList.remove('hidden');
+        document.getElementById('btn-next').focus();
+
+      } else {
+        wrongAttempts++;
+        if (records[currentQIndex].userFirstWrong === null) {
+          records[currentQIndex].userFirstWrong = valStr;
+        }
+
+        if (wrongAttempts < 2) {
+          const randomEnc = t.encourage[Math.floor(Math.random() * t.encourage.length)];
+          let hintBodyHTML = '';
+
+          if (currentMode === 'unit2') {
+            hintBodyHTML = buildUnit2FirstHintHTML(q, {
+              cardsExprRightOnlyProdWrong,
+              userRawAns: cardUserRaw,
+              d1: cardD1,
+              d2: cardD2,
+              d3: cardD3,
+              cryptV1: cryptV1Num,
+              cryptV2: cryptV2Num
+            });
+          } else {
+            let hintText = t.hintEasy;
+            if (q.level === 'medium') hintText = t.hintMedium;
+            else if (q.level === 'hard') hintText = t.hintHard;
+            hintBodyHTML = `<div style="margin-top:6px; font-size:0.95rem; color:#744210;">${hintText}</div>`;
+          }
+
+          feedback.className = "feedback-box feedback-warning";
+          feedback.innerHTML = `
+            <div><strong>${randomEnc}</strong></div>
+            ${hintBodyHTML}
+          `;
+          feedback.classList.remove('hidden');
+
+          if (currentMode === 'unit2' && q.kind === 'cryptarithm') {
+            const b1 = document.getElementById('crypt-box-1');
+            const b2 = document.getElementById('crypt-box-2');
+            const b1Ok = (cryptV1Num === q.box1Ans);
+            const b2Ok = (cryptV2Num === q.box2Ans);
+            if (b1 && !b1Ok) b1.value = '';
+            if (b2 && !b2Ok) b2.value = '';
+            if (b1 && !b1Ok) b1.focus();
+            else if (b2 && !b2Ok) b2.focus();
+          } else if (currentMode === 'unit2' && q.kind === 'cards') {
+            input.value = '';
+            if (cardsExprRightOnlyProdWrong) {
+              input.focus();
+            } else {
+              clearCardSlots();
+            }
+          } else {
+            input.value = '';
+            input.focus();
+          }
+
+        } else {
+          const solutionHTML = renderSolutionCard(q);
+          feedback.className = "feedback-box feedback-danger";
+          feedback.innerHTML = solutionHTML;
+          feedback.classList.remove('hidden');
+
+          if (currentMode === 'unit2' && q.kind === 'cryptarithm') {
+            const b1 = document.getElementById('crypt-box-1');
+            const b2 = document.getElementById('crypt-box-2');
+            if (b1) b1.disabled = true;
+            if (b2) b2.disabled = true;
+          } else if (currentMode === 'unit2' && q.kind === 'cards') {
+            for (let idx = 1; idx <= 3; idx++) {
+              const cb = document.getElementById(`card-box-${idx}`);
+              if (cb) cb.disabled = true;
+            }
+            input.disabled = true;
+          } else {
+            input.disabled = true;
+          }
+
+          document.getElementById('btn-submit').classList.add('hidden');
+          document.getElementById('btn-next').classList.remove('hidden');
+          document.getElementById('btn-next').focus();
+        }
+      }
+    }
+
+    function nextQuestion() {
+      currentQIndex++;
+      if (currentQIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showReport();
+      }
+    }
+
+    function formatDate(d) {
+      const pad = (n) => n.toString().padStart(2, '0');
+      const dateStr = `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+      const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+      return `${dateStr} ${timeStr}`;
+    }
+
+    function formatDuration(start, end) {
+      const diffInSeconds = Math.max(0, Math.floor((end - start) / 1000));
+      const mins = Math.floor(diffInSeconds / 60);
+      const secs = diffInSeconds % 60;
+
+      if (currentLang === 'en') {
+        if (mins > 0) return `${mins} min ${secs} sec`;
+        return `${secs} sec`;
+      } else {
+        if (mins > 0) return `${mins}分鐘${String(secs).padStart(2, '0')}秒`;
+        return `${secs}秒`;
+      }
+    }
+
+    function getLevelLabel(level) {
+      const t = i18n[currentLang];
+      if (level === 'easy') return t.lvlEasy;
+      if (level === 'medium') return t.lvlMed;
+      return t.lvlHard;
+    }
+
+    function showReport() {
+      const endTimeObj = new Date();
+      const t = i18n[currentLang];
+
+      document.getElementById('page-quiz').classList.add('hidden');
+      document.getElementById('page-report').classList.remove('hidden');
+
+      document.getElementById('report-main-title').innerText = t.reportTitle;
+      document.getElementById('lbl-start-time').innerText = t.startTime;
+      document.getElementById('lbl-end-time').innerText = t.endTime;
+      document.getElementById('lbl-duration').innerText = t.durationTime;
+      document.getElementById('lbl-total-correct').innerText = t.totalCorrect;
+      document.getElementById('lbl-accuracy').innerText = t.accuracy;
+      document.getElementById('lbl-mastery-title').innerText = t.masteryTitle;
+      document.getElementById('lbl-correct-title').innerText = t.correctTitle;
+      document.getElementById('lbl-wrong-title').innerText = t.wrongTitle;
+
+      document.getElementById('lbl-btn-download').innerText = t.btnDownload;
+      document.getElementById('lbl-btn-retry').innerText = t.btnRetry;
+      document.getElementById('lbl-btn-home').innerText = t.btnHome;
+
+      document.getElementById('val-start-time').innerText = formatDate(startTimeObj);
+      document.getElementById('val-end-time').innerText = formatDate(endTimeObj);
+      document.getElementById('val-duration').innerText = formatDuration(startTimeObj, endTimeObj);
+
+      let correctCount = 0;
+      records.forEach(r => {
+        if (r.isCorrectOnFirstTry) correctCount++;
+      });
+
+      const total = records.length;
+      const accuracyPct = Math.round((correctCount / total) * 100);
+
+      document.getElementById('val-correct-count').innerText = `${correctCount} / ${total}`;
+      document.getElementById('val-accuracy').innerText = `${accuracyPct}%`;
+
+      const modeName = (currentMode === 'unit1') ? t.u1Title : t.u2Title;
+
+      document.getElementById('report-unit-name').innerText = `1. ${modeName}`;
+      document.getElementById('val-unit-mastery').innerText = `${correctCount} / ${total} (${accuracyPct}%)`;
+
+      const correctContainer = document.getElementById('correct-list-container');
+      correctContainer.innerHTML = '';
+      const correctItems = records.filter(r => r.isCorrectOnFirstTry);
+
+      if (correctItems.length === 0) {
+        correctContainer.innerHTML = `<div style="font-size:0.95rem; color:#718096; padding-left:5px;">${t.noCorrect}</div>`;
+      } else {
+        correctItems.forEach(item => {
+          const qText = t.questionLabel.replace('{n}', item.qIndex);
+          const lvlText = getLevelLabel(item.questionObj.level);
+          const pTxt = item.questionObj.displayText;
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'item-card-correct';
+          itemDiv.innerHTML = `
+            <div class="item-q-title">${qText} [${lvlText}] : ${pTxt}</div>
+            <div class="item-ans-text">${t.ansLabel} : ${item.targetAns}</div>
+          `;
+          correctContainer.appendChild(itemDiv);
+        });
+      }
+
+      const wrongContainer = document.getElementById('wrong-list-container');
+      wrongContainer.innerHTML = '';
+      const wrongItems = records.filter(r => !r.isCorrectOnFirstTry);
+
+      if (wrongItems.length === 0) {
+        wrongContainer.innerHTML = `<div style="font-size:0.95rem; color:#38a169; padding-left:5px;">${t.noWrong}</div>`;
+      } else {
+        wrongItems.forEach(item => {
+          const qText = t.questionLabel.replace('{n}', item.qIndex);
+          const lvlText = getLevelLabel(item.questionObj.level);
+          const pTxt = item.questionObj.displayText;
+          const userAnsDisplay = item.userFirstWrong !== null ? item.userFirstWrong : '-';
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'item-card-wrong';
+          itemDiv.innerHTML = `
+            <div class="item-q-title">${qText} [${lvlText}] : ${pTxt}</div>
+            <div class="item-ans-text">${t.yourAnsLabel} : ${userAnsDisplay} | ${t.correctAnsLabel} : ${item.targetAns}</div>
+          `;
+          wrongContainer.appendChild(itemDiv);
+        });
+      }
+    }
+
+    function downloadReportImage() {
+      const element = document.getElementById('report-card-to-capture');
+      if (!element) return;
+      const t = i18n[currentLang];
+
+      html2canvas(element, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `Two_Digit_Multiply_One_Digit_Report_${new Date().toISOString().slice(0, 10)}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        openModal(t.modalErrorTitle, t.modalErrorMsg + err, t.modalClose, t.modalStart, closeModal);
+      });
+    }
+
+    function openModal(title, msg, cancelTxt, confirmTxt, onConfirm) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-msg').innerText = msg;
+      document.getElementById('modal-cancel-btn').innerText = cancelTxt;
+      document.getElementById('modal-confirm-btn').innerText = confirmTxt;
+      modalActionCallback = onConfirm;
+      document.getElementById('custom-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.remove('active');
+    }
+
+    function confirmModalAction() {
+      closeModal();
+      if (modalActionCallback) modalActionCallback();
+    }
+
+    function askReturnHome() {
+      const t = i18n[currentLang];
+      openModal(
+        t.modalReturnTitle,
+        t.modalReturnMsg,
+        t.modalCancel,
+        t.modalStart,
+        goHome
+      );
+    }
+
+    function retryPractice() {
+      startQuiz(currentMode || 'unit1');
+    }
+
+    function goHome() {
+      document.getElementById('page-quiz').classList.add('hidden');
+      document.getElementById('page-report').classList.add('hidden');
+      document.getElementById('page-home').classList.remove('hidden');
+      document.getElementById('lang-toggle-btn').classList.remove('hidden');
+    }
+  </script>
+  <script src="https://mathteacher1618.github.io/my_fixes/ipad_fix.js"></script>
+</body>
+</html>
