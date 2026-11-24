@@ -123,7 +123,7 @@
 
     /* 練習界面 */
     .quiz-wrapper {
-      max-width: 780px;
+      max-width: 840px;
       margin: 0 auto;
       width: 100%;
     }
@@ -223,6 +223,212 @@
       flex-wrap: wrap;
     }
 
+    /* 單元一：橫式題目保持正中，右側空間配置互動直式輔助卡片 */
+    .u1-question-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      width: 100%;
+      margin: 15px 0 22px 0;
+    }
+
+    .u1-horiz-expr {
+      grid-column: 2;
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: #1a365d;
+      letter-spacing: 2px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .u1-vert-slot {
+      grid-column: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: 14px;
+    }
+
+    .u1-vert-card {
+      background-color: #f8fafc;
+      border: 1.5px solid #cbd5e0;
+      border-radius: 12px;
+      padding: 10px 14px 12px 14px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .u1-vert-card:focus-within {
+      border-color: #3182ce;
+      box-shadow: 0 4px 12px rgba(49, 130, 206, 0.14);
+    }
+
+    /* 香港標準直式 4 欄網格：符號欄 + 百位 + 十位 + 個位 */
+    .u1-vert-grid {
+      display: grid;
+      grid-template-columns: 26px 40px 40px 40px;
+      align-items: center;
+      justify-items: center;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #1a365d;
+      line-height: 1.3;
+      letter-spacing: 0;
+      row-gap: 4px;
+    }
+
+    .u1-vert-header {
+      font-size: 0.78rem;
+      line-height: 1.15;
+      color: #4a5568;
+      font-weight: 700;
+      padding-bottom: 4px;
+      border-bottom: 1px dashed #cbd5e0;
+      margin-bottom: 2px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .u1-top-digit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 36px;
+      border-radius: 6px;
+      transition: background-color 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .u1-top-digit.active-place {
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      box-shadow: inset 0 0 0 1.5px #90cdf4;
+    }
+
+    .u1-top-digit.placeholder-digit {
+      color: #a0aec0;
+      font-weight: 600;
+    }
+
+    /* 進位數字置於乘數同一行左下側（貼近橫線上方，符合香港直式習慣） */
+    .u1-carry-cell {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 36px;
+      padding-bottom: 2px;
+    }
+
+    .u1-vert-hr {
+      grid-column: 1 / 5;
+      width: 100%;
+      border-top: 2.5px solid #1a365d;
+      margin: 2px 0 4px 0;
+    }
+
+    .u1-carry-input {
+      width: 24px;
+      height: 22px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-align: center;
+      border: 1.5px dashed #cbd5e0;
+      border-radius: 4px;
+      background-color: #ffffff;
+      color: #e83e8c;
+      outline: none;
+      padding: 0;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .u1-carry-input::placeholder {
+      color: #cbd5e0;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .u1-carry-input:focus {
+      border-style: solid;
+      border-color: #e83e8c;
+      background-color: #fff5f7;
+    }
+
+    .u1-carry-input:disabled {
+      background-color: #edf2f7;
+      border-color: #cbd5e0;
+    }
+
+    .u1-digit-input {
+      width: 35px;
+      height: 40px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-align: center;
+      border: 2px solid #90cdf4;
+      border-radius: 7px;
+      background-color: #ffffff;
+      color: #1a365d;
+      outline: none;
+      padding: 0;
+      transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+    }
+
+    .u1-digit-input:focus {
+      border-color: #2b6cb0;
+      background-color: #ebf8ff;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.22);
+    }
+
+    .u1-digit-input:disabled {
+      background-color: #edf2f7;
+      border-color: #cbd5e0;
+      color: #2d3748;
+    }
+
+    .u1-vert-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .u1-vert-tip {
+      font-size: 0.75rem;
+      color: #718096;
+      font-weight: 500;
+    }
+
+    .u1-vert-clear-btn {
+      background-color: #edf2f7;
+      border: 1px solid #cbd5e0;
+      color: #4a5568;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 28px;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .u1-vert-clear-btn:hover:not(:disabled) {
+      background-color: #e2e8f0;
+      color: #1a202c;
+    }
+
+    .u1-vert-clear-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .word-problem-display {
       font-size: 1.35rem;
       font-weight: 600;
@@ -281,8 +487,17 @@
       transform: translateY(-2px);
     }
 
-    /* 單元二中階：先組算式再計算的互動列 */
+    /* 單元二高階：先組兩位數×一位數算式再計算的互動列（與右側互動直式並排對齊） */
+    .u2-cards-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      width: 100%;
+      margin: 16px 0 10px 0;
+    }
+
     .card-builder-row {
+      grid-column: 2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -292,10 +507,18 @@
       border: 1.5px dashed #cbd5e0;
       border-radius: 12px;
       padding: 14px 16px;
-      margin: 16px 0 10px 0;
+      margin: 0;
       font-size: 1.45rem;
       font-weight: bold;
       color: #2d3748;
+    }
+
+    .u2-cards-vert-slot {
+      grid-column: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: 14px;
     }
 
     .card-slot-input {
@@ -949,9 +1172,37 @@
     @media (max-width: 768px) {
       .quiz-card { padding: 25px 18px; }
       .math-expression-display { font-size: 2rem; }
+      .u1-horiz-expr { font-size: 2rem; }
+      .u1-vert-slot { padding-left: 8px; }
+      .u1-vert-card { padding: 8px 12px 10px 12px; }
+      .u1-vert-grid { grid-template-columns: 22px 35px 35px 35px; font-size: 1.6rem; }
+      .u1-digit-input { width: 31px; height: 36px; font-size: 1.45rem; }
+      .u1-carry-input { width: 23px; height: 22px; font-size: 0.8rem; }
       .word-problem-display { font-size: 1.15rem; padding: 16px; }
       .equation { font-size: 1.5rem; }
       .answer-input { font-size: 1.5rem; width: 140px; }
+    }
+
+    @media (max-width: 820px) {
+      .u2-cards-split {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .u2-cards-vert-slot {
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .u1-question-split {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .u1-vert-slot { padding-left: 0; }
     }
   </style>
 </head>
@@ -1002,19 +1253,22 @@
               <div id="math-expr-display" class="math-expression-display">23 × 3 = ?</div>
             </div>
 
-            <!-- 單元二中階專用：先組成算式再計算 -->
-            <div id="cards-builder-row" class="card-builder-row hidden">
-              <span id="cards-expr-label" style="font-size:1.1rem; color:#2b6cb0;">組成算式：</span>
-              <input type="text" id="card-box-1" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 1)" onkeydown="handleCardSlotKeyDown(event, 1)">
-              <input type="text" id="card-box-2" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 2)" onkeydown="handleCardSlotKeyDown(event, 2)">
-              <span style="margin: 0 4px;">×</span>
-              <input type="text" id="card-box-3" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 3)" onkeydown="handleCardSlotKeyDown(event, 3)">
-              <button type="button" id="btn-clear-cards" class="clear-cards-btn" onclick="clearCardSlots()">重填算式</button>
+            <!-- 單元二高階專用：先組成兩位數 × 一位數算式，右側同步顯示互動直式 -->
+            <div id="u2-cards-work-area" class="u2-cards-split hidden">
+              <div id="cards-builder-row" class="card-builder-row">
+                <span id="cards-expr-label" style="font-size:1.1rem; color:#2b6cb0;">組成算式：</span>
+                <input type="text" id="card-box-1" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 1)" onkeydown="handleCardSlotKeyDown(event, 1)">
+                <input type="text" id="card-box-2" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 2)" onkeydown="handleCardSlotKeyDown(event, 2)">
+                <span style="margin: 0 4px;">×</span>
+                <input type="text" id="card-box-3" class="card-slot-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="handleCardSlotInput(this, 3)" onkeydown="handleCardSlotKeyDown(event, 3)">
+                <button type="button" id="btn-clear-cards" class="clear-cards-btn" onclick="clearCardSlots()">重填算式</button>
+              </div>
+              <div id="u2-cards-vert-slot" class="u2-cards-vert-slot"></div>
             </div>
 
             <div id="standard-input-row" class="equation">
               <span id="input-prefix-label">答案：</span>
-              <input type="text" id="answer-input" class="answer-input" placeholder="0" autocomplete="off" inputmode="numeric" pattern="[0-9]*" onkeypress="handleKeyPress(event)">
+              <input type="text" id="answer-input" class="answer-input" placeholder="0" autocomplete="off" inputmode="numeric" pattern="[0-9]*" oninput="handleMainAnswerInput(this)" onkeypress="handleKeyPress(event)">
             </div>
 
             <div id="action-area" style="margin-top: 25px;">
@@ -1112,13 +1366,14 @@
     let wrongAttempts = 0;
     let startTimeObj = null;
     let modalActionCallback = null;
+    let u1LastInputSource = 'main';
 
     const i18n = {
       zh: {
         appTitle: '兩位數 × 一位數',
         homeSubtitle: '請選擇學習單元',
         u1Title: '兩位數 × 一位數',
-        u1Desc: '掌握香港小學數學「兩位數乘一位數」直式計算技巧，循序漸進練習不進位（初階）、一次進位（中階）與連續進位（高階）。',
+        u1Desc: '掌握香港小學數學「兩位數乘一位數」直式計算技巧，循序漸進練習不進位（初階 4 題）、一次進位（中階 3 題）與連續進位（高階 3 題）。',
         u2Title: '題型特訓',
         u2Desc: '每次 10 題進階綜合特訓，由淺入深練習「整十數乘法估算」（初階 4 題）、「直式蟲食算」（中階 3 題）及「數字卡組最大／最小積」（高階 3 題）。',
         backBtn: '← 返回單元選擇',
@@ -1130,32 +1385,32 @@
         inputPrefixEst: '估算結果約是：',
         submitBtn: '提交答案',
         nextBtn: '下一題 ➔',
-        promptTextCalc: '計算下列算式：',
+        promptTextCalc: '計算下列算式（可直接在右側直式填寫）：',
         promptTextEst: '估算以下算式的結果：',
         promptTextCards: '請先在下方空格組成算式，再計算結果：',
         promptTextCrypt: '請在直式的方格內填入正確的數字：',
         cardsExprLabel: '組成算式：',
         clearExprBtn: '重填算式',
+        vertCarryPlaceholder: '進',
+        vertTip: '由右至左填寫直式',
+        vertClearBtn: '清除直式',
         cardsClickTip: '（小貼士：可直接點擊上方數字卡填入算式，或在方格內輸入數字）',
         cryptHelper: '（請在直式兩個空格中各填入 1 個數字 0–9）',
         errIncompleteExpr: '請先將「組成算式」的三個方格都填上數字卡！',
         errInvalidCards: '請使用題目給予的三張數字卡組成算式（每張卡只能用一次）！',
         praise: ['太棒了！答對了！', '非常出色！計算完全正確！', '答得好！直式位值非常清晰！', '完全正確！太厲害了！'],
         encourage: ['再試試看！你可以的！', '差一點點，再仔細算一算！', '沒關係，重新檢查一次！'],
-        hintEasy: '提示（初階・不進位）：先算個位乘以一位數，再算十位乘以一位數，各自寫在對應的數位上。',
+        hintEasy: '提示（初階・不進位）：先用個位數字乘以一位數，再把十位數字乘以一位數，各自寫在對應的數位上。',
         hintMedium: '提示（中階・一次進位）：計算時留意某一位相乘會滿 10，記得向高一位進位（進位的數字要加到下一位的乘積中）。',
-        hintHard: '提示（高階・連續進位）：個位相乘滿 10 要向十位進位；計算十位相乘後，千萬別忘記加上剛才進位的數字！',
-        hintU2Est: '提示（初階・估算）：先把兩位數四捨五入至最接近的整十數（個位是 1–4 捨去，5–9 向十位進 1），再乘以一位數。',
+        hintHard: '提示（高階・連續進位）：先算個位（滿 10 向十位進位），再算十位並加上進位的數字（滿 10 再向百位進位）！',
+        hintU2Est: '提示（初階・估算）：先把兩位數四捨五入至最接近的整十數（個位是 0–4 捨去，5–9 向十位進 1），再乘以一位數。',
         hintU2CardsMax: '提示（高階・最大積）：要使乘積最大，應把較大的數字放在「一位數（乘數）」及「兩位數的十位」上（同時留意題目對奇數或偶數的限制）。',
         hintU2CardsMin: '提示（高階・最小積）：要使乘積最小，應把較小的數字放在「一位數（乘數）」及「兩位數的十位」上（同時留意題目對奇數或偶數的限制）。',
-        hintU2Crypt: '提示（中階・蟲食算）：先從「個位相乘」的個位數字入手，推算第一個方格，再留意有沒有滿 10 進位，推算十位與百位！',
+        hintU2Crypt: '提示（中階・蟲食算）：先從「個位相乘」的個位數字入手，推算第一個方格，再留意有沒有滿 10 進位，逐步推算十位與百位！',
         verticalSolutionTitle: '📘 完整直式與位值題解思路',
         verticalSolutionSub: '依直式乘法（先算個位、再算十位）詳細演算過程：',
         decompMethod1: '方法一：直式拆解（分步計算）',
         decompMethod2: '方法二：進位直式（簡寫法）',
-        placeH: '百',
-        placeT: '十',
-        placeO: '個',
         u2SolTitleEst: '📘 四捨五入估算題解思路',
         u2SolSubEst: '先把兩位數四捨五入至整十數，再進行乘法計算：',
         u2SolTitleCards: '📘 數字卡組算式題解思路',
@@ -1195,7 +1450,7 @@
         appTitle: '2-Digit × 1-Digit',
         homeSubtitle: 'Please Select a Learning Unit',
         u1Title: '2-Digit × 1-Digit',
-        u1Desc: 'Master column multiplication of 2-digit by 1-digit numbers: no carrying (Easy), single carrying (Medium), and consecutive carrying (Hard).',
+        u1Desc: 'Master column multiplication of 2-digit by 1-digit numbers: no carrying (4 Easy), single carrying (3 Medium), and double carrying (3 Hard).',
         u2Title: 'Special Question Training',
         u2Desc: '10-question progressive training per set: Rounding Estimation (4 Easy), Missing-Digit Puzzles (3 Medium), and Number Cards Max/Min Product (3 Hard).',
         backBtn: '← Back to Menu',
@@ -1207,12 +1462,15 @@
         inputPrefixEst: 'Estimated product:',
         submitBtn: 'Submit Answer',
         nextBtn: 'Next Question ➔',
-        promptTextCalc: 'Calculate the following:',
+        promptTextCalc: 'Calculate (or fill in the vertical form on the right):',
         promptTextEst: 'Estimate the result of the following:',
         promptTextCards: 'Form the expression in the boxes below, then calculate:',
         promptTextCrypt: 'Fill in the missing digits in the boxes:',
         cardsExprLabel: 'Expression:',
         clearExprBtn: 'Clear',
+        vertCarryPlaceholder: 'c',
+        vertTip: 'Fill right-to-left',
+        vertClearBtn: 'Clear',
         cardsClickTip: '(Tip: Tap the number cards above to fill in, or type directly)',
         cryptHelper: '(Enter one digit 0–9 in each box)',
         errIncompleteExpr: 'Please fill in all three boxes to form your expression first!',
@@ -1221,18 +1479,15 @@
         encourage: ['Try again! You can do it!', 'Almost there, re-check your steps!', 'Don\'t worry, count it again!'],
         hintEasy: 'Hint (Easy - No Carrying): Multiply the ones digit first, then the tens digit, writing each in its place value column.',
         hintMedium: 'Hint (Medium - Single Carrying): Watch for a product ≥ 10 in one column and remember to carry to the next place!',
-        hintHard: 'Hint (Hard - Consecutive Carrying): Carry from ones to tens, and remember to add that carried digit after multiplying the tens!',
-        hintU2Est: 'Hint (Easy - Estimation): Round the 2-digit number to the nearest ten first (ones 1–4 round down, 5–9 round up), then multiply.',
+        hintHard: 'Hint (Hard - Double Carrying): Multiply ones first (carry to tens if ≥ 10), then multiply tens, add the carried digit, and carry to hundreds if ≥ 10!',
+        hintU2Est: 'Hint (Easy - Estimation): Round the 2-digit number to the nearest ten first (ones 0–4 round down, 5–9 round up), then multiply.',
         hintU2CardsMax: 'Hint (Hard - Max Product): Place larger digits in the 1-digit multiplier and the tens place of the 2-digit number (respecting any odd/even rule).',
         hintU2CardsMin: 'Hint (Hard - Min Product): Place smaller digits in the 1-digit multiplier and the tens place of the 2-digit number (respecting any odd/even rule).',
-        hintU2Crypt: 'Hint (Medium - Missing Digits): Start from the ones column product to deduce the first box, then track any carrying into the tens and hundreds!',
+        hintU2Crypt: 'Hint (Medium - Missing Digits): Start from the ones column product to deduce the first box, then track any carrying into tens and hundreds!',
         verticalSolutionTitle: '📘 Complete Column Multiplication Steps',
         verticalSolutionSub: 'Step-by-step column multiplication (ones first, then tens):',
         decompMethod1: 'Method 1: Expanded Column',
         decompMethod2: 'Method 2: Standard Carrying',
-        placeH: 'H',
-        placeT: 'T',
-        placeO: 'O',
         u2SolTitleEst: '📘 Rounding Estimation Solution',
         u2SolSubEst: 'Round the 2-digit number to the nearest ten, then multiply:',
         u2SolTitleCards: '📘 Number Cards Strategy Solution',
@@ -1325,7 +1580,7 @@
       }
     }
 
-    // 單元二高階（數字卡）：點擊卡片自動填入下一個空方格
+    // 單元二高階（數字卡）：點擊卡片自動填入下一個空方格並同步右側直式
     function handleCardClick(digit) {
       const boxes = [
         document.getElementById('card-box-1'),
@@ -1336,6 +1591,7 @@
       for (let i = 0; i < boxes.length; i++) {
         if (boxes[i].value.trim() === '') {
           boxes[i].value = String(digit);
+          syncCardsToVerticalTopDigits();
           if (i < boxes.length - 1) {
             boxes[i + 1].focus();
           } else {
@@ -1349,6 +1605,7 @@
 
     function handleCardSlotInput(el, idx) {
       el.value = el.value.replace(/[^1-9]/g, '').slice(0, 1);
+      syncCardsToVerticalTopDigits();
       if (el.value.length === 1) {
         if (idx < 3) {
           const nextBox = document.getElementById(`card-box-${idx + 1}`);
@@ -1374,8 +1631,40 @@
         const box = document.getElementById(`card-box-${i}`);
         if (box && !box.disabled) box.value = '';
       }
+      syncCardsToVerticalTopDigits();
       const box1 = document.getElementById('card-box-1');
       if (box1 && !box1.disabled) box1.focus();
+    }
+
+    // 將單元二高階「組成算式」的 3 個方格即時同步至右側互動直式的上方數位
+    function syncCardsToVerticalTopDigits() {
+      const q = questions[currentQIndex];
+      if (currentMode !== 'unit2' || !q || q.kind !== 'cards') return;
+      const mapping = [
+        ['card-box-1', 'u1-v-t'],
+        ['card-box-2', 'u1-v-o'],
+        ['card-box-3', 'u1-v-m']
+      ];
+      for (const [cardId, vertId] of mapping) {
+        const cardVal = (document.getElementById(cardId)?.value || '').trim();
+        const vertEl = document.getElementById(vertId);
+        if (vertEl) {
+          if (cardVal === '') {
+            vertEl.innerText = '□';
+            vertEl.classList.add('placeholder-digit');
+          } else {
+            vertEl.innerText = cardVal;
+            vertEl.classList.remove('placeholder-digit');
+          }
+        }
+      }
+    }
+
+    // 判斷目前題目是否啟用右側互動直式（單元一，或單元二高階數字卡）
+    function isInteractiveVerticalActive() {
+      if (currentMode === 'unit1') return true;
+      const q = questions[currentQIndex];
+      return currentMode === 'unit2' && Boolean(q && q.kind === 'cards');
     }
 
     // 單元二中階（蟲食算）：雙格輸入與自動跳格
@@ -1396,6 +1685,125 @@
       }
     }
 
+    // 互動直式：數位高亮聯動（幫助學生看清目前正在乘哪一位）
+    function highlightU1Place(place) {
+      clearU1PlaceHighlight();
+      const multEl = document.getElementById('u1-v-m');
+      if (place === 'o') {
+        const oEl = document.getElementById('u1-v-o');
+        if (oEl) oEl.classList.add('active-place');
+        if (multEl) multEl.classList.add('active-place');
+      } else if (place === 't') {
+        const tEl = document.getElementById('u1-v-t');
+        if (tEl) tEl.classList.add('active-place');
+        if (multEl) multEl.classList.add('active-place');
+      } else if (place === 'h') {
+        if (multEl) multEl.classList.add('active-place');
+      }
+    }
+
+    function clearU1PlaceHighlight() {
+      ['u1-v-t', 'u1-v-o', 'u1-v-m'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active-place');
+      });
+    }
+
+    // 互動直式：由右至左（個 → 十 → 百）輸入並同步至主答案欄
+    function handleU1DigitInput(el, place) {
+      u1LastInputSource = 'vertical';
+      el.value = el.value.replace(/[^0-9]/g, '').slice(0, 1);
+      syncVerticalToMainAnswer();
+
+      if (el.value.length === 1) {
+        const order = ['o', 't', 'h'];
+        const curIdx = order.indexOf(place);
+        if (curIdx >= 0 && curIdx < order.length - 1) {
+          const nextEl = document.getElementById(`u1-ans-${order[curIdx + 1]}`);
+          if (nextEl && !nextEl.disabled) nextEl.focus();
+        }
+      }
+    }
+
+    function handleU1DigitKeyDown(e, place) {
+      const order = ['o', 't', 'h'];
+      const curIdx = order.indexOf(place);
+      if (e.key === 'Backspace' && e.target.value === '' && curIdx > 0) {
+        const prevEl = document.getElementById(`u1-ans-${order[curIdx - 1]}`);
+        if (prevEl && !prevEl.disabled) prevEl.focus();
+      } else if (e.key === 'ArrowLeft' && curIdx < order.length - 1) {
+        const nextEl = document.getElementById(`u1-ans-${order[curIdx + 1]}`);
+        if (nextEl) nextEl.focus();
+      } else if (e.key === 'ArrowRight' && curIdx > 0) {
+        const prevEl = document.getElementById(`u1-ans-${order[curIdx - 1]}`);
+        if (prevEl) prevEl.focus();
+      } else if (e.key === 'Enter') {
+        handleKeyPress(e);
+      }
+    }
+
+    function handleU1CarryInput(el) {
+      u1LastInputSource = 'vertical';
+      el.value = el.value.replace(/[^0-9]/g, '').slice(0, 1);
+    }
+
+    function syncVerticalToMainAnswer() {
+      const mainInput = document.getElementById('answer-input');
+      if (!mainInput || !isInteractiveVerticalActive()) return;
+      const h = (document.getElementById('u1-ans-h')?.value || '').trim();
+      const t = (document.getElementById('u1-ans-t')?.value || '').trim();
+      const o = (document.getElementById('u1-ans-o')?.value || '').trim();
+
+      const combined = `${h}${t}${o}`;
+      if (combined === '') {
+        mainInput.value = '';
+      } else {
+        mainInput.value = combined.replace(/^0+(?=\d)/, '');
+      }
+    }
+
+    function handleMainAnswerInput(el) {
+      if (!isInteractiveVerticalActive()) return;
+      u1LastInputSource = 'main';
+      syncMainAnswerToVertical(el.value);
+    }
+
+    function syncMainAnswerToVertical(rawVal) {
+      if (!isInteractiveVerticalActive()) return;
+      const digits = (rawVal || '').replace(/[^0-9]/g, '').slice(0, 3);
+      const padded = digits.padStart(3, ' ');
+      const map = [
+        ['u1-ans-h', padded[0].trim()],
+        ['u1-ans-t', padded[1].trim()],
+        ['u1-ans-o', padded[2].trim()]
+      ];
+      for (const [id, val] of map) {
+        const box = document.getElementById(id);
+        if (box) box.value = val;
+      }
+    }
+
+    function clearU1Vertical() {
+      const ids = ['u1-carry-h', 'u1-carry-t', 'u1-ans-h', 'u1-ans-t', 'u1-ans-o'];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && !el.disabled) el.value = '';
+      }
+      const mainInput = document.getElementById('answer-input');
+      if (mainInput && !mainInput.disabled) mainInput.value = '';
+      const onesBox = document.getElementById('u1-ans-o');
+      if (onesBox && !onesBox.disabled) onesBox.focus();
+    }
+
+    function setU1VerticalDisabled(disabled) {
+      const ids = ['u1-carry-h', 'u1-carry-t', 'u1-ans-h', 'u1-ans-t', 'u1-ans-o', 'u1-vert-clear-btn'];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el) el.disabled = disabled;
+      }
+      if (disabled) clearU1PlaceHighlight();
+    }
+
     // 陣列洗牌與隨機取樣工具
     function shuffle(array) {
       const arr = [...array];
@@ -1414,8 +1822,8 @@
       單元一題目生成邏輯（兩位數 × 一位數）：
       每次產生 10 題不重覆，由難度低至高排序：
       - 4 題初階（不進位：carry1 === 0 && carry2 === 0）
-      - 3 題中階（一次進位：僅個位進位或僅十位進位）
-      - 3 題高階（連續進位：個位與十位皆有進位）
+      - 3 題中階（一次進位：僅有一個數位發生進位）
+      - 3 題高階（連續進位：個位與十位均發生進位）
     */
     function generateUnit1Questions() {
       const easyPool = [];
@@ -1430,8 +1838,11 @@
         for (let num1 = 2; num1 <= 9; num1++) {
           const onesProd = ones * num1;
           const carry1 = Math.floor(onesProd / 10);
-          const tensTotal = tens * num1 + carry1;
+
+          const tensProd = tens * num1;
+          const tensTotal = tensProd + carry1;
           const carry2 = Math.floor(tensTotal / 10);
+
           const product = num2 * num1;
 
           const item = {
@@ -1441,6 +1852,7 @@
             ones,
             onesProd,
             carry1,
+            tensProd,
             tensTotal,
             carry2,
             product,
@@ -1488,28 +1900,28 @@
     }
 
     /*
-      單元二題目生成邏輯（題型特訓）：
+      單元二題目生成邏輯（題型特訓 — 兩位數 × 一位數）：
       每次產生 10 題不重覆，由難度低至高排序：
       - 4 題初階（整十數乘法估算）
-      - 3 題中階（直式蟲食算，唯一解驗證）
-      - 3 題高階（數字卡組最大／最小積，涵蓋最大與最小）
+      - 3 題中階（兩位數 × 一位數直式蟲食算，唯一解驗證）
+      - 3 題高階（三張數字卡組兩位數 × 一位數最大／最小積，涵蓋最大與最小）
     */
     function generateUnit2Questions() {
       const usedKeys = new Set();
 
-      // 1. 生成 4 題初階估算題
+      // 1. 生成 4 題初階估算題（四捨五入至整十數）
       const easyList = [];
       let safety = 0;
-      while (easyList.length < 4 && safety < 500) {
+      while (easyList.length < 4 && safety < 600) {
         safety++;
-        const tens = Math.floor(Math.random() * 8) + 1; // 1..8
-        const onesFull = pickRandom([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-        const num2 = tens * 10 + onesFull;
+        const tens = Math.floor(Math.random() * 8) + 1; // 1..8（避免 95 以上進位成 100 超過整十數範圍）
+        const ones = pickRandom([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const num2 = tens * 10 + ones;
         const num1 = Math.floor(Math.random() * 8) + 2; // 2..9
         const key = `est_${num2}x${num1}`;
         if (!usedKeys.has(key)) {
           usedKeys.add(key);
-          const isRoundUp = onesFull >= 5;
+          const isRoundUp = ones >= 5;
           const rounded2 = isRoundUp ? (tens + 1) * 10 : tens * 10;
           const estProd = rounded2 * num1;
           easyList.push({
@@ -1519,7 +1931,7 @@
             num2,
             num1,
             tens,
-            ones: onesFull,
+            ones,
             isRoundUp,
             rounded2,
             estProd,
@@ -1537,14 +1949,14 @@
       for (const pattern of patterns) {
         let created = false;
         let inner = 0;
-        while (!created && inner < 800) {
+        while (!created && inner < 1200) {
           inner++;
-          const tens = Math.floor(Math.random() * 8) + 2; // 2..9
+          const tens = Math.floor(Math.random() * 8) + 1; // 1..8
           const ones = Math.floor(Math.random() * 9) + 1; // 1..9
           const mult = Math.floor(Math.random() * 8) + 2; // 2..9
           const num2 = tens * 10 + ones;
           const prod = num2 * mult;
-          if (prod < 100 || prod > 999) continue;
+          if (prod < 100 || prod > 999) continue; // 三位數積方便排列百、十、個三欄
 
           const pStr = prod.toString();
           const pH = parseInt(pStr[0], 10);
@@ -1552,6 +1964,7 @@
           const pO = parseInt(pStr[2], 10);
 
           if (pattern === 'patternA') {
+            // 隱藏一位數乘數（上方方格）與積的十位數字（下方方格）
             let matches = 0;
             for (let m = 2; m <= 9; m++) {
               const pr = num2 * m;
@@ -1586,6 +1999,7 @@
               created = true;
             }
           } else if (pattern === 'patternB') {
+            // 隱藏兩位數的個位（上方方格）與積的百位（下方方格）
             let matches = 0;
             for (let o = 1; o <= 9; o++) {
               const pr = (tens * 10 + o) * mult;
@@ -1620,6 +2034,7 @@
               created = true;
             }
           } else {
+            // 隱藏兩位數的十位（上方方格）與積的個位（下方方格）
             let matches = 0;
             for (let tn = 1; tn <= 9; tn++) {
               const pr = (tn * 10 + ones) * mult;
@@ -1657,10 +2072,22 @@
         }
       }
 
-      // 3. 生成 3 題高階數字卡組算式題（涵蓋最大與最小）
+      // 3. 生成 3 題高階數字卡組算式題（三張數字卡組「兩位數 × 一位數」最大或最小積）
       const hardList = [];
       const goals = shuffle(['max', 'min', pickRandom(['max', 'min'])]);
       const parities = shuffle(['any', 'even_only', 'any']);
+
+      const getPermutations = (arr) => {
+        if (arr.length <= 1) return [arr];
+        const res = [];
+        for (let i = 0; i < arr.length; i++) {
+          const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+          for (const p of getPermutations(rest)) {
+            res.push([arr[i], ...p]);
+          }
+        }
+        return res;
+      };
 
       for (let i = 0; i < 3; i++) {
         const goal = goals[i];
@@ -1675,15 +2102,7 @@
           const sortedKey = `cards_${goal}_${parity}_${[...digits].sort().join('')}`;
           if (usedKeys.has(sortedKey)) continue;
 
-          const perms = [
-            [digits[0], digits[1], digits[2]],
-            [digits[0], digits[2], digits[1]],
-            [digits[1], digits[0], digits[2]],
-            [digits[1], digits[2], digits[0]],
-            [digits[2], digits[0], digits[1]],
-            [digits[2], digits[1], digits[0]]
-          ];
-
+          const perms = getPermutations(digits);
           const candidates = [];
           for (const [d1, d2, d3] of perms) {
             if (parity === 'even_only' && d3 % 2 !== 0) continue;
@@ -1738,6 +2157,7 @@
 
     function loadQuestion() {
       wrongAttempts = 0;
+      u1LastInputSource = 'main';
       const t = i18n[currentLang];
       const q = questions[currentQIndex];
 
@@ -1762,36 +2182,49 @@
         lvlBadge.classList.add('hidden');
       }
 
-      const cardsBuilderRow = document.getElementById('cards-builder-row');
+      const cardsWorkArea = document.getElementById('u2-cards-work-area');
       const standardInputRow = document.getElementById('standard-input-row');
 
       if (currentMode === 'unit2') {
         if (q.kind === 'estimation') {
           document.getElementById('question-prompt-text').innerText = t.promptTextEst;
           document.getElementById('input-prefix-label').innerText = t.inputPrefixEst;
-          cardsBuilderRow.classList.add('hidden');
+          cardsWorkArea.classList.add('hidden');
           standardInputRow.classList.remove('hidden');
         } else if (q.kind === 'cards') {
           document.getElementById('question-prompt-text').innerText = t.promptTextCards;
           document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
           document.getElementById('cards-expr-label').innerText = t.cardsExprLabel;
           document.getElementById('btn-clear-cards').innerText = t.clearExprBtn;
-          cardsBuilderRow.classList.remove('hidden');
+          cardsWorkArea.classList.remove('hidden');
           standardInputRow.classList.remove('hidden');
         } else {
           document.getElementById('question-prompt-text').innerText = t.promptTextCrypt;
-          cardsBuilderRow.classList.add('hidden');
+          cardsWorkArea.classList.add('hidden');
           standardInputRow.classList.add('hidden');
         }
       } else {
         document.getElementById('question-prompt-text').innerText = t.promptTextCalc;
         document.getElementById('input-prefix-label').innerText = t.inputPrefixAns;
-        cardsBuilderRow.classList.add('hidden');
+        cardsWorkArea.classList.add('hidden');
         standardInputRow.classList.remove('hidden');
       }
 
-      // 切換新題目前先清空題目顯示區，避免殘留上一題的輸入框狀態
+      // 切換新題目前先清空題目與直式顯示區，避免殘留上一題的輸入框狀態
       document.getElementById('math-expr-display').innerHTML = '';
+      const u2VertSlot = document.getElementById('u2-cards-vert-slot');
+      if (u2VertSlot) u2VertSlot.innerHTML = '';
+
+      if (currentMode === 'unit2' && q.kind === 'cards') {
+        for (let idx = 1; idx <= 3; idx++) {
+          const cb = document.getElementById(`card-box-${idx}`);
+          if (cb) {
+            cb.value = '';
+            cb.disabled = false;
+          }
+        }
+      }
+
       loadQuestionDisplayOnly(false);
 
       const input = document.getElementById('answer-input');
@@ -1813,18 +2246,14 @@
           if (b1) b1.focus();
         }, 100);
       } else if (currentMode === 'unit2' && q.kind === 'cards') {
-        for (let idx = 1; idx <= 3; idx++) {
-          const cb = document.getElementById(`card-box-${idx}`);
-          if (cb) {
-            cb.value = '';
-            cb.disabled = false;
-          }
-        }
+        setU1VerticalDisabled(false);
+        syncCardsToVerticalTopDigits();
         setTimeout(() => {
           const cb1 = document.getElementById('card-box-1');
           if (cb1) cb1.focus();
         }, 100);
       } else {
+        setU1VerticalDisabled(false);
         setTimeout(() => input.focus(), 100);
       }
 
@@ -1837,6 +2266,58 @@
       document.getElementById('btn-submit').innerText = t.submitBtn;
     }
 
+    // 產生互動直式卡片 HTML（供單元一及單元二高階數字卡共用）
+    function renderInteractiveVerticalCardHTML(topDigits, savedVals = {}, isVertDisabled = false) {
+      const t = i18n[currentLang];
+      const hHeader = currentLang === 'zh' ? '百<br>位' : 'H';
+      const tHeader = currentLang === 'zh' ? '十<br>位' : 'T';
+      const oHeader = currentLang === 'zh' ? '個<br>位' : 'O';
+
+      const formatTop = (val) => {
+        const isEmpty = val === '' || val === null || val === undefined;
+        return {
+          text: isEmpty ? '□' : val,
+          cls: isEmpty ? 'u1-top-digit placeholder-digit' : 'u1-top-digit'
+        };
+      };
+
+      const tObj = formatTop(topDigits.t);
+      const oObj = formatTop(topDigits.o);
+      const mObj = formatTop(topDigits.m);
+
+      return `
+        <div class="u1-vert-card" aria-label="互動直式">
+          <div class="u1-vert-grid">
+            <div class="u1-vert-header">&nbsp;<br>&nbsp;</div>
+            <div class="u1-vert-header">${hHeader}</div>
+            <div class="u1-vert-header">${tHeader}</div>
+            <div class="u1-vert-header">${oHeader}</div>
+
+            <div></div>
+            <div></div>
+            <div><span id="u1-v-t" class="${tObj.cls}">${tObj.text}</span></div>
+            <div><span id="u1-v-o" class="${oObj.cls}">${oObj.text}</span></div>
+
+            <div style="color:#4a5568;">×</div>
+            <div class="u1-carry-cell"><input type="text" id="u1-carry-h" class="u1-carry-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="${t.vertCarryPlaceholder}" value="${savedVals['u1-carry-h'] || ''}" ${isVertDisabled ? 'disabled' : ''} oninput="handleU1CarryInput(this)" onkeypress="handleKeyPress(event)"></div>
+            <div class="u1-carry-cell"><input type="text" id="u1-carry-t" class="u1-carry-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" placeholder="${t.vertCarryPlaceholder}" value="${savedVals['u1-carry-t'] || ''}" ${isVertDisabled ? 'disabled' : ''} oninput="handleU1CarryInput(this)" onkeypress="handleKeyPress(event)"></div>
+            <div><span id="u1-v-m" class="${mObj.cls}">${mObj.text}</span></div>
+
+            <div class="u1-vert-hr"></div>
+
+            <div></div>
+            <div><input type="text" id="u1-ans-h" class="u1-digit-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${savedVals['u1-ans-h'] || ''}" ${isVertDisabled ? 'disabled' : ''} onfocus="highlightU1Place('h')" onblur="clearU1PlaceHighlight()" oninput="handleU1DigitInput(this, 'h')" onkeydown="handleU1DigitKeyDown(event, 'h')"></div>
+            <div><input type="text" id="u1-ans-t" class="u1-digit-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${savedVals['u1-ans-t'] || ''}" ${isVertDisabled ? 'disabled' : ''} onfocus="highlightU1Place('t')" onblur="clearU1PlaceHighlight()" oninput="handleU1DigitInput(this, 't')" onkeydown="handleU1DigitKeyDown(event, 't')"></div>
+            <div><input type="text" id="u1-ans-o" class="u1-digit-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${savedVals['u1-ans-o'] || ''}" ${isVertDisabled ? 'disabled' : ''} onfocus="highlightU1Place('o')" onblur="clearU1PlaceHighlight()" oninput="handleU1DigitInput(this, 'o')" onkeydown="handleU1DigitKeyDown(event, 'o')"></div>
+          </div>
+          <div class="u1-vert-footer">
+            <span class="u1-vert-tip">${t.vertTip}</span>
+            <button type="button" id="u1-vert-clear-btn" class="u1-vert-clear-btn" ${isVertDisabled ? 'disabled' : ''} onclick="clearU1Vertical()">${t.vertClearBtn}</button>
+          </div>
+        </div>
+      `;
+    }
+
     function loadQuestionDisplayOnly(preserveState = false) {
       const q = questions[currentQIndex];
       const t = i18n[currentLang];
@@ -1847,6 +2328,17 @@
           displayElem.className = 'math-expression-display';
           displayElem.innerHTML = `${q.displayHtml}`;
         } else if (q.kind === 'cards') {
+          const savedVals = {};
+          const vIds = ['u1-carry-h', 'u1-carry-t', 'u1-ans-h', 'u1-ans-t', 'u1-ans-o'];
+          let isVertDisabled = false;
+          if (preserveState) {
+            vIds.forEach(id => {
+              const el = document.getElementById(id);
+              savedVals[id] = el ? el.value : '';
+              if (el && el.disabled) isVertDisabled = true;
+            });
+          }
+
           displayElem.className = 'cards-question-box';
           const cardsHTML = q.cards
             .map(d => `<span class="digit-card clickable" role="button" tabindex="0" onclick="handleCardClick(${d})">${d}</span>`)
@@ -1875,8 +2367,17 @@
               <div style="font-size:0.9rem; color:#4a5568; margin-top:8px; font-weight:500;">${t.cardsClickTip}</div>
             `;
           }
+
+          const u2VertSlot = document.getElementById('u2-cards-vert-slot');
+          if (u2VertSlot) {
+            const topDigits = {
+              t: (document.getElementById('card-box-1')?.value || '').trim(),
+              o: (document.getElementById('card-box-2')?.value || '').trim(),
+              m: (document.getElementById('card-box-3')?.value || '').trim()
+            };
+            u2VertSlot.innerHTML = renderInteractiveVerticalCardHTML(topDigits, savedVals, isVertDisabled);
+          }
         } else if (q.kind === 'cryptarithm') {
-          // 僅在切換語言時保留已輸入的數字與鎖定狀態；載入新題目時保持空白
           const prevB1 = preserveState ? document.getElementById('crypt-box-1') : null;
           const prevB2 = preserveState ? document.getElementById('crypt-box-2') : null;
           const v1 = prevB1 ? prevB1.value : '';
@@ -1919,8 +2420,28 @@
           `;
         }
       } else {
-        displayElem.className = 'math-expression-display';
-        displayElem.innerHTML = `${q.displayHtml}`;
+        const savedVals = {};
+        const vIds = ['u1-carry-h', 'u1-carry-t', 'u1-ans-h', 'u1-ans-t', 'u1-ans-o'];
+        let isVertDisabled = false;
+        if (preserveState) {
+          vIds.forEach(id => {
+            const el = document.getElementById(id);
+            savedVals[id] = el ? el.value : '';
+            if (el && el.disabled) isVertDisabled = true;
+          });
+        }
+
+        displayElem.className = 'u1-question-split';
+        const vertCardHTML = renderInteractiveVerticalCardHTML(
+          { t: q.tens, o: q.ones, m: q.num1 },
+          savedVals,
+          isVertDisabled
+        );
+
+        displayElem.innerHTML = `
+          <div class="u1-horiz-expr">${q.displayHtml}</div>
+          <div class="u1-vert-slot">${vertCardHTML}</div>
+        `;
       }
     }
 
@@ -1933,12 +2454,15 @@
       const prodT = hasHundreds ? prodStr[1] : prodStr[0];
       const prodO = hasHundreds ? prodStr[2] : prodStr[1];
 
-      const carryTensBadge = q.carry1 > 0 ? `<span class="pink-txt" style="font-size:0.95rem;">${q.carry1}</span>` : '';
-      const carryHundredsBadge = q.carry2 > 0 ? `<span class="pink-txt" style="font-size:0.95rem;">${q.carry2}</span>` : '';
+      const carryTensBadge = q.carry1 > 0 ? `<span class="pink-txt" style="font-size:0.9rem;">+${q.carry1}</span>` : '';
+      const carryHundredsBadge = q.carry2 > 0 ? `<span class="pink-txt" style="font-size:0.9rem;">+${q.carry2}</span>` : '';
 
       let step1Text = '';
       let step2Text = '';
       let step3Text = '';
+
+      const onesVal = q.onesProd;
+      const tensVal = q.tens * 10 * q.num1;
 
       if (currentLang === 'zh') {
         if (q.carry1 === 0) {
@@ -1948,17 +2472,17 @@
         }
 
         if (q.carry1 === 0 && q.carry2 === 0) {
-          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span>（${q.tensTotal} 個十），在十位寫 <span class="pink-txt">${prodT}</span>。`;
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${tensVal}</span>（${q.tensTotal} 個十），在十位寫 <span class="pink-txt">${prodT}</span>。`;
         } else if (q.carry1 > 0 && q.carry2 === 0) {
-          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${q.tens * 10 * q.num1}（${q.tens * q.num1} 個十），加上進位的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十，在十位寫 <span class="pink-txt">${prodT}</span>。`;
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${tensVal}（${q.tensProd} 個十），加上個位進上來的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十，在十位寫 <span class="pink-txt">${prodT}</span>。`;
         } else if (q.carry1 === 0 && q.carry2 > 0) {
-          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span>（${q.tensTotal} 個十），滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = <span class="pink-txt">${tensVal}</span>（${q.tensTotal} 個十），滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
         } else {
-          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${q.tens * 10 * q.num1}（${q.tens * q.num1} 個十），加上進位的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十；滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
+          step2Text = `<strong>步驟二（再算十位）：</strong>十位 ${q.tens}（即 ${q.tens * 10}）× ${q.num1} = ${tensVal}（${q.tensProd} 個十），加上個位進上來的 <span class="pink-txt">${q.carry1}</span> 個十，得 <span class="pink-txt">${q.tensTotal}</span> 個十；滿 10 個十向百位進 <span class="pink-txt">${q.carry2}</span>，在十位寫 <span class="pink-txt">${prodT}</span>、百位寫 <span class="pink-txt">${prodH}</span>。`;
         }
 
         const revNote = q.isReversed ? `（利用乘法交換性質：${q.num1} × ${q.num2} = ${q.num2} × ${q.num1}）` : '';
-        step3Text = `<strong>直式拆解合併驗算${revNote}：</strong>把個位積與十位積相加：<span style="color:#3f6212; font-weight:bold;">${q.onesProd}</span> + <span style="color:#9a3412; font-weight:bold;">${q.tens * 10 * q.num1}</span> = <span class="pink-txt">${q.product}</span>`;
+        step3Text = `<strong>直式拆解合併驗算${revNote}：</strong>把個位積與十位積相加：<span style="color:#3f6212; font-weight:bold;">${onesVal}</span> + <span style="color:#9a3412; font-weight:bold;">${tensVal}</span> = <span class="pink-txt">${q.product}</span>`;
       } else {
         if (q.carry1 === 0) {
           step1Text = `<strong>Step 1 (Ones place):</strong> ${q.ones} × ${q.num1} = <span class="pink-txt">${q.onesProd}</span> (no carry). Write <span class="pink-txt">${prodO}</span> in the ones column.`;
@@ -1967,25 +2491,30 @@
         }
 
         if (q.carry1 === 0 && q.carry2 === 0) {
-          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span> (${q.tensTotal} tens). Write <span class="pink-txt">${prodT}</span> in the tens column.`;
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${tensVal}</span> (${q.tensTotal} tens). Write <span class="pink-txt">${prodT}</span> in the tens column.`;
         } else if (q.carry1 > 0 && q.carry2 === 0) {
-          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${q.tens * 10 * q.num1} (${q.tens * q.num1} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Write <span class="pink-txt">${prodT}</span> in the tens column.`;
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${tensVal} (${q.tensProd} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Write <span class="pink-txt">${prodT}</span> in the tens column.`;
         } else if (q.carry1 === 0 && q.carry2 > 0) {
-          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${q.tens * 10 * q.num1}</span> (${q.tensTotal} tens). Carry <span class="pink-txt">${q.carry2}</span> to hundreds; write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = <span class="pink-txt">${tensVal}</span> (${q.tensTotal} tens). Carry <span class="pink-txt">${q.carry2}</span> to hundreds; write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
         } else {
-          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${q.tens * 10 * q.num1} (${q.tens * q.num1} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
+          step2Text = `<strong>Step 2 (Tens place):</strong> ${q.tens * 10} × ${q.num1} = ${tensVal} (${q.tensProd} tens), plus carried <span class="pink-txt">${q.carry1}</span> = <span class="pink-txt">${q.tensTotal}</span> tens. Carry <span class="pink-txt">${q.carry2}</span> to hundreds; write <span class="pink-txt">${prodT}</span> in tens and <span class="pink-txt">${prodH}</span> in hundreds.`;
         }
 
         const revNote = q.isReversed ? ` (Commutative property: ${q.num1} × ${q.num2} = ${q.num2} × ${q.num1})` : '';
-        step3Text = `<strong>Expanded Sum Check${revNote}:</strong> Add partial products: <span style="color:#3f6212; font-weight:bold;">${q.onesProd}</span> + <span style="color:#9a3412; font-weight:bold;">${q.tens * 10 * q.num1}</span> = <span class="pink-txt">${q.product}</span>`;
+        step3Text = `<strong>Expanded Sum Check${revNote}:</strong> Add the ones product and tens product: <span style="color:#3f6212; font-weight:bold;">${onesVal}</span> + <span style="color:#9a3412; font-weight:bold;">${tensVal}</span> = <span class="pink-txt">${q.product}</span>`;
       }
 
       const compactVerticalHTML = `
         <div class="v-mult-grid">
           <div class="v-place-header"></div>
-          <div class="v-place-header">${t.placeH}</div>
-          <div class="v-place-header">${t.placeT}</div>
-          <div class="v-place-header">${t.placeO}</div>
+          <div class="v-place-header">${currentLang === 'zh' ? '百' : 'H'}</div>
+          <div class="v-place-header">${currentLang === 'zh' ? '十' : 'T'}</div>
+          <div class="v-place-header">${currentLang === 'zh' ? '個' : 'O'}</div>
+
+          <div class="v-carry-row"></div>
+          <div class="v-carry-row">${carryHundredsBadge}</div>
+          <div class="v-carry-row">${carryTensBadge}</div>
+          <div class="v-carry-row"></div>
 
           <div></div>
           <div></div>
@@ -1997,35 +2526,71 @@
           <div></div>
           <div>${q.num1}</div>
 
-          <div class="v-line-top v-carry-row"></div>
-          <div class="v-line-top v-carry-row">${carryHundredsBadge}</div>
-          <div class="v-line-top v-carry-row">${carryTensBadge}</div>
-          <div class="v-line-top v-carry-row"></div>
-
-          <div></div>
-          <div class="pink-txt">${prodH}</div>
-          <div class="pink-txt">${prodT}</div>
-          <div class="pink-txt">${prodO}</div>
+          <div class="v-line-top"></div>
+          <div class="v-line-top pink-txt">${prodH}</div>
+          <div class="v-line-top pink-txt">${prodT}</div>
+          <div class="v-line-top pink-txt">${prodO}</div>
         </div>
       `;
 
-      let diagramsHTML = '';
-      if (currentMode === 'unit1') {
-        const onesProdStr = q.onesProd.toString();
-        const opT = onesProdStr.length === 2 ? onesProdStr[0] : '';
-        const opO = onesProdStr.length === 2 ? onesProdStr[1] : onesProdStr[0];
+      const hLabel = currentLang === 'zh' ? '百<br>位' : 'H';
+      const tLabel = currentLang === 'zh' ? '十<br>位' : 'T';
+      const oLabel = currentLang === 'zh' ? '個<br>位' : 'O';
 
-        const tensProdVal = q.tens * 10 * q.num1;
-        const tensProdStr = tensProdVal.toString();
-        const tpH = tensProdStr.length === 3 ? tensProdStr[0] : '';
-        const tpT = tensProdStr.length === 3 ? tensProdStr[1] : tensProdStr[0];
-        const tpO = tensProdStr.length === 3 ? tensProdStr[2] : tensProdStr[1];
+      let expandedGridHTML = '';
+      if (!hasHundreds) {
+        const opT = onesVal >= 10 ? Math.floor(onesVal / 10) : '';
+        const opO = onesVal % 10;
+        const tpT = Math.floor(tensVal / 10);
+        const tpO = 0;
 
-        const hLabel = currentLang === 'zh' ? '百<br>位' : 'H';
-        const tLabel = currentLang === 'zh' ? '十<br>位' : 'T';
-        const oLabel = currentLang === 'zh' ? '個<br>位' : 'O';
+        expandedGridHTML = `
+          <div class="decomp-grid-2">
+            <div></div>
+            <div class="decomp-header">${tLabel}</div>
+            <div class="decomp-header">${oLabel}</div>
+            <div></div>
 
-        const expandedGridHTML = hasHundreds ? `
+            <div></div>
+            <div>${q.tens}</div>
+            <div>${q.ones}</div>
+            <div></div>
+
+            <div style="color:#4a5568;">×</div>
+            <div></div>
+            <div>${q.num1}</div>
+            <div></div>
+
+            <div class="decomp-hr-2"></div>
+            <div></div>
+
+            <div class="decomp-arrow-green">→</div>
+            <div>${opT}</div>
+            <div>${opO}</div>
+            <div><span class="speech-bubble bubble-green">${q.ones} × ${q.num1}</span></div>
+
+            <div class="decomp-arrow-orange">→</div>
+            <div>${tpT}</div>
+            <div>${tpO}</div>
+            <div><span class="speech-bubble bubble-orange">${q.tens * 10} × ${q.num1}</span></div>
+
+            <div class="decomp-hr-2"></div>
+            <div></div>
+
+            <div></div>
+            <div class="pink-txt">${prodT}</div>
+            <div class="pink-txt">${prodO}</div>
+            <div><span class="speech-bubble bubble-blue">${onesVal} + ${tensVal}</span></div>
+          </div>
+        `;
+      } else {
+        const opT = onesVal >= 10 ? Math.floor(onesVal / 10) : '';
+        const opO = onesVal % 10;
+        const tpH = tensVal >= 100 ? Math.floor(tensVal / 100) : '';
+        const tpT = Math.floor((tensVal % 100) / 10);
+        const tpO = 0;
+
+        expandedGridHTML = `
           <div class="decomp-grid-3">
             <div></div>
             <div class="decomp-header">${hLabel}</div>
@@ -2067,67 +2632,23 @@
             <div class="pink-txt">${prodH}</div>
             <div class="pink-txt">${prodT}</div>
             <div class="pink-txt">${prodO}</div>
-            <div><span class="speech-bubble bubble-blue">${q.onesProd} + ${tensProdVal}</span></div>
-          </div>
-        ` : `
-          <div class="decomp-grid-2">
-            <div></div>
-            <div class="decomp-header">${tLabel}</div>
-            <div class="decomp-header">${oLabel}</div>
-            <div></div>
-
-            <div></div>
-            <div>${q.tens}</div>
-            <div>${q.ones}</div>
-            <div></div>
-
-            <div style="color:#4a5568;">×</div>
-            <div></div>
-            <div>${q.num1}</div>
-            <div></div>
-
-            <div class="decomp-hr-2"></div>
-            <div></div>
-
-            <div class="decomp-arrow-green">→</div>
-            <div>${opT}</div>
-            <div>${opO}</div>
-            <div><span class="speech-bubble bubble-green">${q.ones} × ${q.num1}</span></div>
-
-            <div class="decomp-arrow-orange">→</div>
-            <div>${tpT}</div>
-            <div>${tpO}</div>
-            <div><span class="speech-bubble bubble-orange">${q.tens * 10} × ${q.num1}</span></div>
-
-            <div class="decomp-hr-2"></div>
-            <div></div>
-
-            <div></div>
-            <div class="pink-txt">${prodT}</div>
-            <div class="pink-txt">${prodO}</div>
-            <div><span class="speech-bubble bubble-blue">${q.onesProd} + ${tensProdVal}</span></div>
-          </div>
-        `;
-
-        diagramsHTML = `
-          <div class="decomp-wrapper">
-            <div class="decomp-box">
-              <div class="decomp-title">${t.decompMethod1}</div>
-              ${expandedGridHTML}
-            </div>
-            <div class="decomp-box">
-              <div class="decomp-title">${t.decompMethod2}</div>
-              ${compactVerticalHTML}
-            </div>
-          </div>
-        `;
-      } else {
-        diagramsHTML = `
-          <div class="balance-step-container">
-            ${compactVerticalHTML}
+            <div><span class="speech-bubble bubble-blue">${onesVal} + ${tensVal}</span></div>
           </div>
         `;
       }
+
+      const diagramsHTML = `
+        <div class="decomp-wrapper">
+          <div class="decomp-box">
+            <div class="decomp-title">${t.decompMethod1}</div>
+            ${expandedGridHTML}
+          </div>
+          <div class="decomp-box">
+            <div class="decomp-title">${t.decompMethod2}</div>
+            ${compactVerticalHTML}
+          </div>
+        </div>
+      `;
 
       return `
         ${diagramsHTML}
@@ -2170,7 +2691,7 @@
                 <div class="step-line" style="color:#22543d; font-weight:bold;">✔ 太好了！你組成的算式 <strong>${d1}${d2} × ${d3}</strong> 完全正確！</div>
                 <div class="step-line">但乘積計算有誤（你剛才算得 <strong>${userRawAns}</strong>）。請分兩步用直式再算一次：</div>
                 <div class="step-line">1. 先算個位：<strong>${d2} × ${d3} = ${onesProd}</strong></div>
-                <div class="step-line">2. 再算十位：<strong>${d1 * 10} × ${d3} = ${tensProd}</strong>，最後把兩部分加起來！</div>
+                <div class="step-line">2. 再算十位：<strong>${d1 * 10} × ${d3} = ${tensProd}</strong>，把兩部分加起來！</div>
               </div>
             `;
           } else {
@@ -2197,12 +2718,12 @@
           const step1 = (q.parity === 'even_only')
             ? `<strong>引導步驟一（先鎖定一位偶數乘數）：</strong>這三張卡中，偶數是 <span class="pink-txt">${evenCards.join('、')}</span>，所以一位數乘數（× 後面）只能放偶數卡！`
             : (q.goal === 'max'
-                ? `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由大至小排好：<strong>${sortedDesc.join(' > ')}</strong>。要令乘積<span class="pink-txt">最大</span>，應把較大的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」。`
-                : `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由小至大排好：<strong>${sortedAsc.join(' < ')}</strong>。要令乘積<span class="pink-txt">最小</span>，應把較小的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」。`);
+                ? `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由大至小排好：<strong>${sortedDesc.join(' > ')}</strong>。要令乘積<span class="pink-txt">最大</span>，應把較大的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」，最小的一張放個位。`
+                : `<strong>引導步驟一（位值排序策略）：</strong>把數字卡由小至大排好：<strong>${sortedAsc.join(' < ')}</strong>。要令乘積<span class="pink-txt">最小</span>，應把較小的兩張卡分別放在「<strong>一位數乘數</strong>」和「<strong>兩位數的十位</strong>」，最大的一張放個位。`);
 
           const compareTip = topTwo.length >= 2
             ? `<strong>引導步驟二（比較關鍵組合）：</strong>試比較「<strong>${topTwo[0].expr}</strong>」和「<strong>${topTwo[1].expr}</strong>」這兩種排法，算一算哪一道算式的積${q.goal === 'max' ? '更大' : '更小'}！`
-            : `<strong>引導步驟二（排好兩位數）：</strong>確定乘數為 <strong>${topTwo[0].d3}</strong> 後，把餘下兩張卡按「${q.goal === 'max' ? '大數在十位、小數在個位' : '小數在十位、大數在個位'}」排成 <strong>${topTwo[0].expr}</strong>，再計算結果！`;
+            : `<strong>引導步驟二（排好兩位數）：</strong>確定乘數為 <strong>${topTwo[0].d3}</strong> 後，把餘下兩張卡按「${q.goal === 'max' ? '十位 > 個位' : '十位 < 個位'}」排成 <strong>${topTwo[0].expr}</strong>，再計算結果！`;
 
           return `
             <div class="step-box" style="margin-top:10px; border-left-color:#dd6b20;">
@@ -2263,10 +2784,10 @@
         }
         if (currentLang === 'zh') {
           c1 = `<strong>引導步驟一（先看個位推算上方方格）：</strong>看個位數字，<strong>${q.ones} × [上方方格]</strong> 的尾數是 <strong>${q.pO}</strong>。想一想 ${q.ones} 的乘法表，乘積尾數是 ${q.pO} 的一位數乘數有：<span class="pink-txt">${matchingMs.join(' 或 ')}</span>。`;
-          c2 = `<strong>引導步驟二（結合百位確定並算十位）：</strong>十位是 ${q.tens}（即 ${q.tens * 10}），乘以 [上方方格] 加上進位後要等於 <strong>${q.pH}00 多</strong>；確定上方方格後，用直式算出完整乘積，十位數字就是下方方格！`;
+          c2 = `<strong>引導步驟二（結合百位確定並算十位）：</strong>百位是 <strong>${q.pH}</strong>（即 <strong>${q.pH}00 多</strong>），試把上面候選數字代入「<strong>${q.num2} × [上方方格]</strong>」，找出結果是 ${q.pH}00 多的一個，積的十位數字就是下方方格！`;
         } else {
           c1 = `<strong>Step 1 (Deduce top box from ones):</strong> In the ones column, <strong>${q.ones} × [top box]</strong> ends in <strong>${q.pO}</strong>. From the ${q.ones} times table, the multiplier can be <span class="pink-txt">${matchingMs.join(' or ')}</span>.`;
-          c2 = `<strong>Step 2 (Check hundreds & find tens):</strong> ${q.tens * 10} × [top box] plus carry must give <strong>${q.pH}00+</strong>. Once you find the top box, multiply to get the tens digit for the bottom box!`;
+          c2 = `<strong>Step 2 (Check hundreds & find tens):</strong> Since the product is in the <strong>${q.pH}00s</strong>, test those candidate(s) in <strong>${q.num2} × [top box]</strong>—the tens digit of that product goes in the bottom box!`;
         }
       } else if (q.pattern === 'patternB') {
         const matchingOs = [];
@@ -2275,20 +2796,20 @@
         }
         if (currentLang === 'zh') {
           c1 = `<strong>引導步驟一（先看個位推算上方方格）：</strong>看個位數字，<strong>[上方方格] × ${q.mult}</strong> 的尾數是 <strong>${q.pO}</strong>。想一想 ${q.mult} 的乘法表，尾數是 ${q.pO} 的一位數有：<span class="pink-txt">${matchingOs.join(' 或 ')}</span>。`;
-          c2 = `<strong>引導步驟二（利用十位進位鎖定答案）：</strong>十位是 <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>（${q.tens * q.mult} 個十）。看看上面候選數字乘以 ${q.mult} 時向十位進了多少，加上 ${q.tens * q.mult} 後要等於 <strong>${q.pH}${q.pT}</strong>（十位必須是 ${q.pT}），就能同時確定上方與下方（百位）方格！`;
+          c2 = `<strong>引導步驟二（利用進位鎖定答案）：</strong>十位是 <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>。看看上面候選數字乘以 ${q.mult} 時向十位進了多少，加上 ${q.tens * q.mult} 後要令積的十位等於 <strong>${q.pT}</strong>，而百位數字就是下方方格！`;
         } else {
           c1 = `<strong>Step 1 (Deduce top box from ones):</strong> <strong>[top box] × ${q.mult}</strong> ends in <strong>${q.pO}</strong>. From the ${q.mult} times table, the digit can be <span class="pink-txt">${matchingOs.join(' or ')}</span>.`;
-          c2 = `<strong>Step 2 (Use tens carry to lock in):</strong> Tens <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>. Add the carry from the ones multiplication so the total tens equal <strong>${q.pH}${q.pT}</strong> (tens digit ${q.pT})!`;
+          c2 = `<strong>Step 2 (Use carry to lock in):</strong> Tens <strong>${q.tens} × ${q.mult} = ${q.tens * q.mult}</strong>. Add the carry from the ones multiplication so the tens digit is <strong>${q.pT}</strong>, and the hundreds digit goes in the bottom box!`;
         }
       } else {
         const onesProd = q.ones * q.mult;
         const carry1 = Math.floor(onesProd / 10);
         if (currentLang === 'zh') {
           c1 = `<strong>引導步驟一（先算個位求下方方格）：</strong>個位可以直接相乘！計算 <strong>${q.ones} × ${q.mult} = ${onesProd}</strong>，所以積的個位（下方方格）就是 <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? `（並記得向十位進 <span class="pink-txt">${carry1}</span>）` : '（個位不需進位）'}。`;
-          c2 = `<strong>引導步驟二（反推十位求上方方格）：</strong>看十位，<strong>[上方方格] × ${q.mult}</strong>${carry1 > 0 ? ` 加上進位的 <strong>${carry1}</strong>` : ''} 要等於 <strong>${q.pH}${q.pT}</strong>（即 ${q.pH * 10 + q.pT}）。想一想 ${q.mult} 乘以幾${carry1 > 0 ? `再加 ${carry1}` : ''} 會等於 ${q.pH * 10 + q.pT}？`;
+          c2 = `<strong>引導步驟二（反推十位求上方方格）：</strong>十位 <strong>[上方方格] × ${q.mult}</strong>${carry1 > 0 ? ` 加上進位的 <strong>${carry1}</strong>` : ''} 後要等於 <strong>${q.pH}${q.pT}</strong>。想一想：${q.mult} 乘以幾${carry1 > 0 ? `再加 ${carry1}` : ''}會等於 <strong>${q.pH}${q.pT}</strong>？`;
         } else {
           c1 = `<strong>Step 1 (Calculate bottom box directly):</strong> Multiply the ones: <strong>${q.ones} × ${q.mult} = ${onesProd}</strong>, so the bottom box is <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? ` (carry <span class="pink-txt">${carry1}</span> to tens)` : ''}.`;
-          c2 = `<strong>Step 2 (Deduce top tens box):</strong> <strong>[top box] × ${q.mult}</strong>${carry1 > 0 ? ` + carry <strong>${carry1}</strong>` : ''} = <strong>${q.pH}${q.pT}</strong> (${q.pH * 10 + q.pT}). Find which digit fits the top box!`;
+          c2 = `<strong>Step 2 (Deduce top tens box):</strong> Tens <strong>[top box] × ${q.mult}</strong>${carry1 > 0 ? ` + carry <strong>${carry1}</strong>` : ''} must equal <strong>${q.pH}${q.pT}</strong>. Which digit fits the top box?`;
         }
       }
 
@@ -2301,7 +2822,7 @@
       `;
     }
 
-    // 單元二題解思路生成器（涵蓋估算、數卡、蟲食算）
+    // 單元二題解思路生成器（涵蓋整十數估算、三張數卡、直式蟲食算）
     function buildUnit2SolutionHTML(q) {
       const t = i18n[currentLang];
 
@@ -2358,8 +2879,8 @@
             s1 = `<strong>步驟一（先看一位數乘數條件）：</strong>題目規定乘數必須是「一位偶數」，可用偶數卡為 <span class="pink-txt">${evenCards.join('、')}</span>，因此必須把偶數卡放在一位數乘數的位置。`;
           } else {
             s1 = q.goal === 'max'
-              ? `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由大至小排列為 ${sortedDesc.join(' > ')}。要令乘積最大，優先把最大數字作為一位數乘數，其次放在兩位數的十位。`
-              : `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由小至大排列為 ${sortedAsc.join(' < ')}。要令乘積最小，優先把最小數字作為一位數乘數，其次放在兩位數的十位。`;
+              ? `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由大至小排列為 ${sortedDesc.join(' > ')}。要令乘積最大，優先把較大的兩張卡放在「一位數乘數」和「兩位數的十位」。`
+              : `<strong>步驟一（決定一位數乘數與十位）：</strong>把數字卡由小至大排列為 ${sortedAsc.join(' < ')}。要令乘積最小，優先把較小的兩張卡放在「一位數乘數」和「兩位數的十位」。`;
           }
           if (sortedCandidates.length >= 2) {
             const cFirst = sortedCandidates[0];
@@ -2370,7 +2891,7 @@
           } else {
             s2 = `<strong>步驟二（組成最佳算式）：</strong>餘下兩張卡按位值排好，得到唯一符合條件的最大／最小算式：<strong>${q.best.expr} = <span class="pink-txt">${q.best.prod}</span></strong>。`;
           }
-          s3 = `<strong>所有符合條件算式比較：</strong>${allListStr}`;
+          s3 = `<strong>所有合法算式比較：</strong>${allListStr}`;
         } else {
           if (q.parity === 'even_only') {
             const evenCards = sortedDesc.filter(d => d % 2 === 0);
@@ -2404,7 +2925,7 @@
         `;
       }
 
-      // 蟲食算題解（patternA / patternB / patternC，完整列出候選乘法表驗證）
+      // 蟲食算題解（兩位數 × 一位數，4 欄對齊）
       const sBox1 = `<span class="crypt-solved-box">${q.box1Ans}</span>`;
       const sBox2 = `<span class="crypt-solved-box">${q.box2Ans}</span>`;
       let solvedGrid = '';
@@ -2417,7 +2938,6 @@
           <div class="crypt-hr"></div>
           <div></div><div>${q.pH}</div><div>${sBox2}</div><div>${q.pO}</div>
         `;
-        const carry1 = Math.floor((q.ones * q.mult) / 10);
         const candidatesM = [];
         for (let m = 2; m <= 9; m++) {
           if ((q.ones * m) % 10 === q.pO) {
@@ -2426,7 +2946,7 @@
         }
         if (currentLang === 'zh') {
           d1 = `<strong>步驟一（推算乘數方格）：</strong>看個位，${q.ones} × □ 的尾數是 ${q.pO}。檢驗 ${q.ones} 的乘法表：<span class="pink-txt">${candidatesM.join('；')}</span>。只有乘數為 <span class="pink-txt">${q.mult}</span> 時，積的百位才是 ${q.pH}，因此上方方格填 <span class="pink-txt">${q.mult}</span>。`;
-          d2 = `<strong>步驟二（計算完整直式得積的十位）：</strong>計算 ${q.num2} × ${q.mult}：個位寫 ${q.pO}${carry1 > 0 ? `、向十位進 ${carry1}` : ''}；十位 ${q.tens} × ${q.mult}${carry1 > 0 ? ` + ${carry1}` : ''} = ${q.tens * q.mult + carry1}，所以積的十位（下方方格）是 <span class="pink-txt">${q.pT}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+          d2 = `<strong>步驟二（計算完整直式得積的十位）：</strong>計算 ${q.num2} × ${q.mult} = ${q.prod}，所以積的十位（下方方格）是 <span class="pink-txt">${q.pT}</span>。`;
         } else {
           d1 = `<strong>Step 1 (Find multiplier box):</strong> In the ones place, ${q.ones} × □ ends in ${q.pO}. Checking candidates: ${candidatesM.join('; ')}. Only <span class="pink-txt">${q.mult}</span> gives hundreds digit ${q.pH}.`;
           d2 = `<strong>Step 2 (Find product tens box):</strong> Multiply ${q.num2} × ${q.mult} = ${q.prod}, so the product's tens box is <span class="pink-txt">${q.pT}</span>.`;
@@ -2438,20 +2958,20 @@
           <div class="crypt-hr"></div>
           <div></div><div>${sBox2}</div><div>${q.pT}</div><div>${q.pO}</div>
         `;
-        const carry1 = Math.floor((q.ones * q.mult) / 10);
         const candidatesO = [];
         for (let o = 1; o <= 9; o++) {
           if ((o * q.mult) % 10 === q.pO) {
             const c = Math.floor((o * q.mult) / 10);
-            candidatesO.push(`填 ${o} 時：${o} × ${q.mult} = ${o * q.mult}${c > 0 ? `（進 ${c}，十位得 ${q.tens * q.mult} + ${c} = ${q.tens * q.mult + c}）` : `（無進位，十位得 ${q.tens * q.mult}）`}`);
+            const testProd = (q.tens * 10 + o) * q.mult;
+            candidatesO.push(`填 ${o} 時：${o} × ${q.mult} = ${o * q.mult}（進 ${c}，整題積為 ${testProd}）`);
           }
         }
         if (currentLang === 'zh') {
-          d1 = `<strong>步驟一（推算個位方格）：</strong>看個位，□ × ${q.mult} 的尾數是 ${q.pO}。檢驗 ${q.mult} 的乘法表：<span class="pink-txt">${candidatesO.join('；')}</span>。要令十位與百位合起來等於 ${q.pH}${q.pT}，上方方格必為 <span class="pink-txt">${q.ones}</span>。`;
-          d2 = `<strong>步驟二（推算積的百位方格）：</strong>十位 ${q.tens} × ${q.mult} + ${carry1} = <span class="pink-txt">${q.pH}${q.pT}</span>，向百位進 <span class="pink-txt">${q.pH}</span>，因此積的百位（下方方格）是 <span class="pink-txt">${q.pH}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+          d1 = `<strong>步驟一（推算個位方格）：</strong>看個位，□ × ${q.mult} 的尾數是 ${q.pO}。檢驗 ${q.mult} 的乘法表：<span class="pink-txt">${candidatesO.join('；')}</span>。只有上方方格填 <span class="pink-txt">${q.ones}</span> 時，積的十位才是 ${q.pT}。`;
+          d2 = `<strong>步驟二（推算積的百位方格）：</strong>計算完整算式 ${q.num2} × ${q.mult} = ${q.prod}，因此積的百位（下方方格）是 <span class="pink-txt">${q.pH}</span>。`;
         } else {
-          d1 = `<strong>Step 1 (Find ones box):</strong> □ × ${q.mult} ends in ${q.pO}, and ${q.tens} × ${q.mult} + carry ends in ${q.pT}, so the ones box is <span class="pink-txt">${q.ones}</span> (${q.ones} × ${q.mult} = ${q.ones * q.mult}).`;
-          d2 = `<strong>Step 2 (Find hundreds box):</strong> Tens ${q.tens} × ${q.mult} + ${carry1} = ${q.pH}${q.pT}, so the hundreds box is <span class="pink-txt">${q.pH}</span> (${q.num2} × ${q.mult} = ${q.prod}).`;
+          d1 = `<strong>Step 1 (Find ones box):</strong> □ × ${q.mult} ends in ${q.pO}. Checking ${q.mult}'s times table gives ones digit <span class="pink-txt">${q.ones}</span> so the tens digit becomes ${q.pT}.`;
+          d2 = `<strong>Step 2 (Find hundreds box):</strong> Multiply ${q.num2} × ${q.mult} = ${q.prod}, so the bottom box is <span class="pink-txt">${q.pH}</span>.`;
         }
       } else {
         solvedGrid = `
@@ -2462,13 +2982,12 @@
         `;
         const onesProd = q.ones * q.mult;
         const carry1 = Math.floor(onesProd / 10);
-        const tensTarget = q.pH * 10 + q.pT;
         if (currentLang === 'zh') {
           d1 = `<strong>步驟一（推算積的個位方格）：</strong>個位 ${q.ones} × ${q.mult} = ${onesProd}，所以積的個位（下方方格）是 <span class="pink-txt">${q.pO}</span>${carry1 > 0 ? `（並向十位進 ${carry1}）` : ''}。`;
-          d2 = `<strong>步驟二（推算十位方格）：</strong>十位 □ × ${q.mult}${carry1 > 0 ? ` + 進位 ${carry1}` : ''} = ${tensTarget}，所以 □ × ${q.mult} = ${tensTarget - carry1}，可知上方十位方格是 <span class="pink-txt">${q.tens}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
+          d2 = `<strong>步驟二（推算十位方格）：</strong>十位 □ × ${q.mult}${carry1 > 0 ? ` + 進位 ${carry1}` : ''} = ${q.pH}${q.pT}，可知上方十位方格是 <span class="pink-txt">${q.tens}</span>（完整算式：${q.num2} × ${q.mult} = ${q.prod}）。`;
         } else {
           d1 = `<strong>Step 1 (Find product ones box):</strong> Ones ${q.ones} × ${q.mult} = ${onesProd}, so the product's ones box is <span class="pink-txt">${q.pO}</span> (carry ${carry1}).`;
-          d2 = `<strong>Step 2 (Find tens box):</strong> Tens □ × ${q.mult} + ${carry1} = ${tensTarget}, so the tens box is <span class="pink-txt">${q.tens}</span> (${q.num2} × ${q.mult} = ${q.prod}).`;
+          d2 = `<strong>Step 2 (Find tens box):</strong> Tens □ × ${q.mult} + ${carry1} = ${q.pH}${q.pT}, so the tens box is <span class="pink-txt">${q.tens}</span>.`;
         }
       }
 
@@ -2632,8 +3151,10 @@
             if (cb) cb.disabled = true;
           }
           input.disabled = true;
+          setU1VerticalDisabled(true);
         } else {
           input.disabled = true;
+          if (currentMode === 'unit1') setU1VerticalDisabled(true);
         }
 
         document.getElementById('btn-submit').classList.add('hidden');
@@ -2685,14 +3206,36 @@
             else if (b2 && !b2Ok) b2.focus();
           } else if (currentMode === 'unit2' && q.kind === 'cards') {
             input.value = '';
+            ['u1-ans-h', 'u1-ans-t', 'u1-ans-o'].forEach(id => {
+              const box = document.getElementById(id);
+              if (box) box.value = '';
+            });
             if (cardsExprRightOnlyProdWrong) {
-              input.focus();
+              if (u1LastInputSource === 'vertical') {
+                const onesBox = document.getElementById('u1-ans-o');
+                if (onesBox) onesBox.focus();
+              } else {
+                input.focus();
+              }
             } else {
               clearCardSlots();
             }
           } else {
             input.value = '';
-            input.focus();
+            if (currentMode === 'unit1') {
+              ['u1-ans-h', 'u1-ans-t', 'u1-ans-o'].forEach(id => {
+                const box = document.getElementById(id);
+                if (box) box.value = '';
+              });
+              if (u1LastInputSource === 'vertical') {
+                const onesBox = document.getElementById('u1-ans-o');
+                if (onesBox) onesBox.focus();
+              } else {
+                input.focus();
+              }
+            } else {
+              input.focus();
+            }
           }
 
         } else {
@@ -2712,8 +3255,10 @@
               if (cb) cb.disabled = true;
             }
             input.disabled = true;
+            setU1VerticalDisabled(true);
           } else {
             input.disabled = true;
+            if (currentMode === 'unit1') setU1VerticalDisabled(true);
           }
 
           document.getElementById('btn-submit').classList.add('hidden');
